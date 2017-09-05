@@ -1,2 +1,4 @@
 ﻿# ignore conf intillije
 .idea/
+# ignore logs
+logs/
