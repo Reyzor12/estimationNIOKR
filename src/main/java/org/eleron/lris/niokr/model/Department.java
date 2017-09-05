@@ -1,10 +1,10 @@
 package org.eleron.lris.niokr.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="department")
@@ -14,7 +14,8 @@ public class Department extends Model{
     @NotNull(message="Class: Department field: name type: String message: Couldn't be null")
     private String name;
 
-    private List<User> users = null;
+    @OneToMany(mappedBy = "department")
+    private Set<User> users = new HashSet<User>();
 
     public String getName() {
         return name;
@@ -24,11 +25,11 @@ public class Department extends Model{
         this.name = name;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
