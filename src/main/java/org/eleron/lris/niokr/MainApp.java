@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.dao.DepartmentDAOImplements;
+import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -17,9 +19,14 @@ public class MainApp extends Application {
     public static void main(String[] args) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
-
+        /*
+        DepartmentDAOImplements dao_department = new DepartmentDAOImplements();
+        dao_department.setSessionFactory(sessionFactory);
+        Department department = new Department();
+        department.setName("Name");
+        dao_department.addDepartment(department);
         launch(args);
+        */
     }
 
     @Override

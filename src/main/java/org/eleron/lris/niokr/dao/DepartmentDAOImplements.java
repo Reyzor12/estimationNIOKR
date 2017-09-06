@@ -24,31 +24,99 @@ public class DepartmentDAOImplements implements DepartmentDAO {
         log.info("add " + department + " begin");
         Session session = this.sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(department);
-        transaction.commit();
-        session.close();
-        log.info("add " + department + " was successful");
+
+        try{
+            session.persist(department);
+            transaction.commit();
+            log.info("add " + department + " was successful");
+        } catch(Exception e){
+            log.error("add " + department + "fail ",e);
+            transaction.rollback();
+        } finally{
+            session.close();
+        }
+
     }
 
     @Override
     public void updateDepartment(Department department) {
 
         log.info("update " + department + " begin");
-        Session session = this.sessionFactory;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+
+            session.update(department);
+            transaction.commit();
+            log.info("update " + department + " was successful");
+        } catch (Exception e) {
+            transaction.rollback();
+            log.error("update " + department + " fail ", e);
+        } finally{
+            session.close();
+        }
+
     }
 
     @Override
     public List<Department> listDepartment() {
-        return null;
+
+        log.info("list " + this.getClass().getName() + " try receive");
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Department> departments = null;
+        try{
+            departments = session.createQuery("from department").list();
+            transaction.commit();
+            log.info("list " + this.getClass().getName() + " receive");
+        }catch (Exception e) {
+            log.error("list " + this.getClass().getName() + " fail ", e);
+            transaction.rollback();
+        }finally{
+            session.close();
+        }
+        return departments;
     }
 
     @Override
     public Department getDepartmentById(Long id) {
-        return null;
+
+        log.info("get " + this.getClass().getName() + " id " + id + " start");
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Department department_curr = null;
+        try{
+            department_curr = (Department)session.load(Department.class,id);
+            transaction.commit();
+            log.info("get " + this.getClass().getName() + " id " + id + " successful");
+        }catch(Exception e){
+            transaction.rollback();
+            log.error("get " + this.getClass().getName() + " id " + id + " fail");
+        }finally{
+            session.close();
+        }
+        return department_curr;
     }
 
     @Override
     public void removeDepartmentById(Long id) {
 
+        log.info("remove " + this.getClass().getName() + " id " + id + " start");
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            Department department = (Department) session.load(Department.class,id);
+            if (department != null){
+                session.delete(department);
+            }
+        } catch(Exception e) {
+            log.error("remove " + this.getClass().getName() + " id " + id + " fail");
+            transaction.rollback();
+        }finally{
+            session.close();
+        }
     }
 }
