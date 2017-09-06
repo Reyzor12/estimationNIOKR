@@ -67,4 +67,8 @@ public class User extends Model {
     public User(Long id){
         super(id);
     }
+
+    public String toString(){
+        return this.getClass() + " " + this.getId() + " " + this.getName();
+    }
 }

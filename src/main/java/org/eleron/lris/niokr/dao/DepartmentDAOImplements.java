@@ -112,6 +112,8 @@ public class DepartmentDAOImplements implements DepartmentDAO {
             if (department != null){
                 session.delete(department);
             }
+            transaction.commit();
+            log.info("remove " + this.getClass().getName() + " id " + id + " successful");
         } catch(Exception e) {
             log.error("remove " + this.getClass().getName() + " id " + id + " fail");
             transaction.rollback();
