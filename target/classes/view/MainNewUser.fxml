@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainNewUser">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eleron.lris.niokr.controller.MainNewUser">
    <children>
       <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -32,22 +32,22 @@
         </rowConstraints>
          <children>
             <Label prefHeight="83.0" prefWidth="560.0" text="Окно открывается один раз, при первом запуске программы. Заполните все имеющиеся поля и нажмите кнопку &quot;Сохранить&quot;" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-            <TextField prefHeight="31.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <TextField fx:id="nameField" prefHeight="31.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="120.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <TextField fx:id="snameField" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="120.0" />
                </GridPane.margin>
             </TextField>
-            <TextField prefWidth="235.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+            <TextField fx:id="fnameField" prefWidth="235.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="120.0" />
                </GridPane.margin>
             </TextField>
-            <ChoiceBox prefHeight="31.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="departmentField" prefHeight="31.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
             <Label text="Имя:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="20.0" />
@@ -68,7 +68,8 @@
                   <Insets right="20.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" text="Сохранить" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#addUser" text="Сохранить" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label fx:id="infoLabel" prefHeight="52.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </children>
