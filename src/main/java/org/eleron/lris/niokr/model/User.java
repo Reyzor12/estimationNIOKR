@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User extends Model {
 
     @NotNull(message="Class: User field: name message: couldn't be null")
@@ -24,8 +24,8 @@ public class User extends Model {
     private String fname;
 
     @NotNull(message="Class: User field: department message: couldn't be null")
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="department_id",referencedColumnName="id")
+    @ManyToOne(fetch= FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name="department",referencedColumnName="id")
     private Department department;
 
     public String getName() {

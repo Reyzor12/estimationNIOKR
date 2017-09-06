@@ -41,4 +41,8 @@ public class Department extends Model{
         super(id);
     }
 
+    public String toString(){
+        return getClass().getName() + " - " + this.name;
+    }
+
 }
