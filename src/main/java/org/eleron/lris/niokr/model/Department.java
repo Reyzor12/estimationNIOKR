@@ -42,7 +42,7 @@ public class Department extends Model{
     }
 
     public String toString(){
-        return getClass().getName() + " - " + this.name;
+        return this.name;
     }
 
 }

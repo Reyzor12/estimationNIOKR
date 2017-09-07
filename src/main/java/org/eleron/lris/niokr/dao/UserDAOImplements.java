@@ -25,7 +25,7 @@ public class UserDAOImplements implements UserDAO{
         Transaction transaction = session.beginTransaction();
 
         try{
-            session.persist(user);
+            session.merge(user);
             transaction.commit();
             log.info("add " + user + " successful");
         } catch(Exception e) {
@@ -85,7 +85,7 @@ public class UserDAOImplements implements UserDAO{
 
         List<User> users = null;
         try{
-            users = session.createQuery("from users").list();
+            users = session.createQuery("from User").list();
             transaction.commit();
             log.info("list " + this.getClass() + " successful");
         }catch(Exception e){

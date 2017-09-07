@@ -67,7 +67,7 @@ public class DepartmentDAOImplements implements DepartmentDAO {
         Transaction transaction = session.beginTransaction();
         List<Department> departments = null;
         try{
-            departments = session.createQuery("from department").list();
+            departments = session.createQuery("from Department").list();
             transaction.commit();
             log.info("list " + this.getClass().getName() + " receive");
         }catch (Exception e) {
