@@ -10,8 +10,8 @@ import java.util.Set;
 @Table(name="department")
 public class Department extends Model{
 
-    @Column(name="name")
-    @NotNull(message="Class: Department field: name type: String message: Couldn't be null")
+    @Column(name="name",unique=true)
+    @NotNull(message="Выбирите отдел!")
     private String name;
 
     @OneToMany(mappedBy = "department")

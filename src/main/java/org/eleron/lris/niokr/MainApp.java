@@ -12,9 +12,10 @@ import org.hibernate.SessionFactory;
 public class MainApp extends Application {
     final static Logger log = Logger.getLogger(MainApp.class);
 
+    private static SessionFactory sessionFactory;
     public static void main(String[] args) {
 
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        sessionFactory = HibernateUtil.getSessionFactory();
         /*
         DepartmentDAOImplements dao_department = new DepartmentDAOImplements();
         dao_department.setSessionFactory(sessionFactory);
@@ -33,5 +34,9 @@ public class MainApp extends Application {
         primaryStage.setScene(new Scene(root,800,600));
         primaryStage.show();
         log.info("MainApp.fxml load");
+    }
+
+    public void stop(){
+        sessionFactory.close();
     }
 }

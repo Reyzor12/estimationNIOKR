@@ -11,12 +11,6 @@ import java.util.List;
 public class UserDAOImplements implements UserDAO{
 
     final static Logger log = Logger.getLogger(UserDAOImplements.class);
-    private SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
     public void addUser(User user) {
 
@@ -26,6 +20,7 @@ public class UserDAOImplements implements UserDAO{
 
         try{
             session.merge(user);
+//            session.persist(user);
             transaction.commit();
             log.info("add " + user + " successful");
         } catch(Exception e) {
@@ -34,6 +29,11 @@ public class UserDAOImplements implements UserDAO{
         } finally{
             session.close();
         }
+    }
+    private SessionFactory sessionFactory;
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

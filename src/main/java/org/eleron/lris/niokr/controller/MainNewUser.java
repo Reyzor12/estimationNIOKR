@@ -1,22 +1,25 @@
 package org.eleron.lris.niokr.controller;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.sun.javafx.scene.control.behavior.ChoiceBoxBehavior;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.dao.DepartmentDAOImplements;
 import org.eleron.lris.niokr.dao.UserDAOImplements;
 import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.HibernateUtil;
+import org.eleron.lris.niokr.util.ValidationUtil;
 import org.hibernate.SessionFactory;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -28,8 +31,6 @@ public class MainNewUser {
     private Label snameLabel;
     private Label fnameLabel;
     private Label departmentLabel;
-
-    private String pattern_name;
 
     private User user;
 
@@ -51,22 +52,6 @@ public class MainNewUser {
     @FXML
     private Button saveButton;
 
-    private void validField(TextField textField){
-
-        pattern_name = "[А-Я']{1}([а-я']){0,30}";
-        Pattern validValue = Pattern.compile(pattern_name);
-        textField.textProperty().addListener(
-                ((observable, oldValue, newValue) ->
-                {
-                    if(validValue.matcher(newValue).matches()||newValue.isEmpty()){
-                        ((StringProperty)observable).setValue(newValue);
-                    } else {
-                        ((StringProperty)observable).setValue(oldValue);
-                    }
-                }
-                )
-        );
-    }
     @FXML
     private void initialize() {
         try{
@@ -85,6 +70,10 @@ public class MainNewUser {
             e.printStackTrace();
         }
 
+        ValidationUtil.validUserField(nameField);
+        ValidationUtil.validUserField(snameField);
+        ValidationUtil.validUserField(fnameField);
+
     }
 
     public MainNewUser(){}
@@ -95,22 +84,54 @@ public class MainNewUser {
             log.info("add new user name-" +nameField.getText() + " sname-" + snameField.getText()
                     + " fname-" + fnameField.getText());
             user = new User();
-            user.setName(nameField.getText());
-            user.setSname(snameField.getText());
-            user.setFname(fnameField.getText());
 
-            DepartmentDAOImplements departmentDAO = new DepartmentDAOImplements();
-            departmentDAO.setSessionFactory(sessionFactory);
+//            int result = (1 > 2) ? 1 : 0;
+            boolean check = true;
+            if(!nameField.getText().equals("")){
+                user.setName(nameField.getText());
+            } else{ check=false;}
+            if(!snameField.getText().equals("")){
+                user.setSname(snameField.getText());
+            } else{ check=false;}
+            if(!fnameField.getText().equals("")){
+                user.setFname(fnameField.getText());
+            } else{ check=false;}
+            if (departmentField.getValue()!=null) {
+
+                DepartmentDAOImplements departmentDAO = new DepartmentDAOImplements();
+                departmentDAO.setSessionFactory(sessionFactory);
 
 //        user.setDepartment(departmentDAO.getDepartmentById(1L));
-            user.setDepartment(departmentField.getValue());
+                user.setDepartment(departmentField.getValue());
+            } else{
+                check=false;
+            }
 
-            UserDAOImplements userDAO = new UserDAOImplements();
-            userDAO.setSessionFactory(sessionFactory);
+            if(check) {
 
-            System.out.println("id user = " + user.getId());
-            userDAO.addUser(user);
-            log.info("user add successful");
+                if(ValidationUtil.valiationUniqueUser(user)){
+
+                    UserDAOImplements userDAO = new UserDAOImplements();
+                    userDAO.setSessionFactory(sessionFactory);
+                    userDAO.addUser(user);
+                    log.info("user add successful");
+                }else {
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Предупреждение");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Такой пользователь уже сушествует!");
+                    alert.show();
+                }
+
+            } else {
+
+                ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+                Validator validator = validatorFactory.getValidator();
+
+                ValidationUtil.validate(user,validator);
+            }
+
         }catch(Exception e){
             log.error("add user fail", e);
             e.printStackTrace();

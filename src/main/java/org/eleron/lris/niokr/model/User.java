@@ -5,25 +5,26 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="users")
+@Table(name="users", uniqueConstraints = {
+        @UniqueConstraint(columnNames={"name","sname","fname","department"})})
 public class User extends Model {
 
-    @NotNull(message="Class: User field: name message: couldn't be null")
-    @Size(max=100, message="Class: User field: name message: max size is 100 digits")
-    @Column(name="name")
+    @NotNull(message="Не задано имя пользователя")
+    @Size(max=100, message="Имя прользователя не может привышать 100 знаков")
+    @Column(name="name" , nullable=false)
     private String name;
 
-    @NotNull(message="Class: User field: sname message: couldn't be null")
-    @Size(max=100, message="Class: User field: sname message: max size is 100 digits")
-    @Column(name="sname")
+    @NotNull(message="Не задана фамилия пользователя")
+    @Size(max=100, message="Фамилия прользователя не может привышать 100 знаков")
+    @Column(name="sname", nullable=false)
     private String sname;
 
-    @NotNull(message="Class: User field: fname message: couldn't be null")
-    @Size(max=100, message="Class: User field: fname message: max size is 100 digits")
-    @Column(name="fname")
+    @NotNull(message="Не задано отчество пользователя")
+    @Size(max=100, message="Отчество прользователя не может привышать 100 знаков")
+    @Column(name="fname",nullable=false)
     private String fname;
 
-    @NotNull(message="Class: User field: department message: couldn't be null")
+    @NotNull(message="Не задано подрзделение пользователя")
     @ManyToOne(fetch= FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name="department",referencedColumnName="id")
     private Department department;
