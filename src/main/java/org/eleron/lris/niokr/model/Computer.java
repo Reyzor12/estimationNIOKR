@@ -1,19 +1,20 @@
 package org.eleron.lris.niokr.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="department")
-public class Department extends Model{
+@Table(name="computer")
+public class Computer extends Model {
 
-    @Column(name="name",unique=true)
-    @NotNull(message="Выбирите отдел!")
+    @NotNull
+    @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "department")
     private Set<User> users = new HashSet<User>();
 
     public String getName() {
@@ -32,16 +33,13 @@ public class Department extends Model{
         this.users = users;
     }
 
-    public Department() {
+    public Computer() {
+
         super();
     }
 
-    public Department(Long id){
+    public Computer(Long id){
+
         super(id);
     }
-
-    public String toString(){
-        return this.name;
-    }
-
 }
