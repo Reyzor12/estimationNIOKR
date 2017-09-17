@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.bussines.UserBussines;
 import org.eleron.lris.niokr.dao.DepartmentDAOImplements;
 import org.eleron.lris.niokr.dao.UserDAOImplements;
 import org.eleron.lris.niokr.model.Department;
@@ -80,57 +81,19 @@ public class MainNewUser {
 
     @FXML
     public void addUser(){
+
+        String name = nameField.getText();
+        String sname = snameField.getText();
+        String fname = fnameField.getText();
+        Department department = departmentField.getValue();
+
         try{
-            log.info("add new user name-" +nameField.getText() + " sname-" + snameField.getText()
-                    + " fname-" + fnameField.getText());
-            user = new User();
+            log.info("add new user name-" +name+ " sname-" + sname
+                    + " fname-" + fname);
 
 //            int result = (1 > 2) ? 1 : 0;
-            boolean check = true;
-            if(!nameField.getText().equals("")){
-                user.setName(nameField.getText());
-            } else{ check=false;}
-            if(!snameField.getText().equals("")){
-                user.setSname(snameField.getText());
-            } else{ check=false;}
-            if(!fnameField.getText().equals("")){
-                user.setFname(fnameField.getText());
-            } else{ check=false;}
-            if (departmentField.getValue()!=null) {
+            UserBussines.formedUser(name,sname,fname,department);
 
-                DepartmentDAOImplements departmentDAO = new DepartmentDAOImplements();
-                departmentDAO.setSessionFactory(sessionFactory);
-
-//        user.setDepartment(departmentDAO.getDepartmentById(1L));
-                user.setDepartment(departmentField.getValue());
-            } else{
-                check=false;
-            }
-
-            if(check) {
-
-                if(ValidationUtil.valiationUniqueUser(user)){
-
-                    UserDAOImplements userDAO = new UserDAOImplements();
-                    userDAO.setSessionFactory(sessionFactory);
-                    userDAO.addUser(user);
-                    log.info("user add successful");
-                }else {
-
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Предупреждение");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Такой пользователь уже сушествует!");
-                    alert.show();
-                }
-
-            } else {
-
-                ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-                Validator validator = validatorFactory.getValidator();
-
-                ValidationUtil.validate(user,validator);
-            }
 
         }catch(Exception e){
             log.error("add user fail", e);
