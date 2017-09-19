@@ -85,6 +85,6 @@ public class User extends Model {
     }
 
     public String toString(){
-        return this.getClass() + " " + this.getId() + " " + this.getName();
+        return this.getName() + " " + this.getSname() + " " + this.getFname();
     }
 }

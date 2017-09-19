@@ -76,11 +76,15 @@ public class Enter {
                 primaryStage.show();
 
             } else{
-                Alert alert = new Alert(Alert.AlertType.WARNING);
+                /*Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText(null);
                 alert.setContentText("Уже все пользователи созданы, пора выбирать");
-                alert.show();
+                alert.show();*/
+
+                Parent root = FXMLLoader.load(MainApp.class.getClassLoader().getResource("view/MainUserList.fxml"));
+                primaryStage.setScene(new Scene(root,800,600));
+                primaryStage.show();
 
             }
         }catch (Exception e) {
