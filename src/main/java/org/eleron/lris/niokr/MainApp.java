@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -30,9 +31,10 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         log.info("application start");
-        Parent root = FXMLLoader.load(MainApp.class.getClassLoader().getResource("view/MainNewUser.fxml"));
-        primaryStage.setScene(new Scene(root,800,600));
-        primaryStage.show();
+
+        Enter.setSessionFactory(sessionFactory);
+        Enter.setPrimaryStage(primaryStage);
+        Enter.welcome();
         log.info("MainApp.fxml load");
     }
 

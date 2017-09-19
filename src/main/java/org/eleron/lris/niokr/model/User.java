@@ -29,6 +29,18 @@ public class User extends Model {
     @JoinColumn(name="department",referencedColumnName="id")
     private Department department;
 
+    @NotNull(message="Имя компьютера не может быть пустым")
+    @Column(name="computer",nullable = false)
+    private String computer;
+
+    public String getComputer() {
+        return computer;
+    }
+
+    public void setComputer(String computer) {
+        this.computer = computer;
+    }
+
     public String getName() {
         return name;
     }
@@ -63,10 +75,13 @@ public class User extends Model {
 
     public User(){
         super();
+        this.computer=System.getenv("USERNAME");
     }
 
     public User(Long id){
+
         super(id);
+        this.computer=System.getenv("USERNAME");
     }
 
     public String toString(){
