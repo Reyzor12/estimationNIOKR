@@ -19,11 +19,11 @@ public class Enter {
 
     private final static Logger log = Logger.getLogger(Enter.class);
 
-    private static Stage primaryStage;
-
     private static String computer;
 
     private static List<User> users;
+
+    private static User cUser;
 
     private static SessionFactory sessionFactory;
 
@@ -51,12 +51,12 @@ public class Enter {
         Enter.users = users;
     }
 
-    public static Stage getPrimaryStage() {
-        return primaryStage;
+    public static User getcUser() {
+        return cUser;
     }
 
-    public  static void setPrimaryStage(Stage primaryStage) {
-        Enter.primaryStage = primaryStage;
+    public static void setcUser(User cUser) {
+        Enter.cUser = cUser;
     }
 
     public static Set<User> welcome(){
@@ -71,9 +71,7 @@ public class Enter {
 
             users = session.createQuery("from User where computer = :comp").setParameter("comp",computer).list();
             if(users.isEmpty()){
-                Parent root = FXMLLoader.load(MainApp.class.getClassLoader().getResource("view/MainNewUser.fxml"));
-                primaryStage.setScene(new Scene(root,800,600));
-                primaryStage.show();
+                LoadScenes.load("view/MainNewUser.fxml");
 
             } else{
                 /*Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -82,9 +80,7 @@ public class Enter {
                 alert.setContentText("Уже все пользователи созданы, пора выбирать");
                 alert.show();*/
 
-                Parent root = FXMLLoader.load(MainApp.class.getClassLoader().getResource("view/MainUserList.fxml"));
-                primaryStage.setScene(new Scene(root,800,600));
-                primaryStage.show();
+                LoadScenes.load("view/MainUserList.fxml");
 
             }
         }catch (Exception e) {

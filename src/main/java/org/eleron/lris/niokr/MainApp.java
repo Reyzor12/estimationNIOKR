@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.bussines.Enter;
+import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -33,7 +34,7 @@ public class MainApp extends Application {
         log.info("application start");
 
         Enter.setSessionFactory(sessionFactory);
-        Enter.setPrimaryStage(primaryStage);
+        LoadScenes.setPrimaryStage(primaryStage);
         Enter.welcome();
         log.info("MainApp.fxml load");
     }
