@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller = "org.eleron.lris.niokr.controller.MainMenu">
    <children>
       <SplitPane dividerPositions="0.21804511278195488" layoutX="306.0" layoutY="152.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -35,7 +35,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="75.0" prefWidth="241.0" text="Оставить отзыв" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button mnemonicParsing="false" fx:id="supportBtn" onAction="#addReport" prefHeight="75.0" prefWidth="241.0" text="Оставить отзыв" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
