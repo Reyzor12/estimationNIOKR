@@ -69,10 +69,12 @@ public class Enter {
 
         try{
 
-            users = session.createQuery("from User where computer = :comp").setParameter("comp",computer).list();
-            if(users.isEmpty()){
-                LoadScenes.load("view/MainNewUser.fxml");
 
+            cUser = (User)session.createQuery("from User where computer = :comp").setParameter("comp",computer).uniqueResult();
+
+            if(cUser==null){
+
+                LoadScenes.load("view/MainNewUser.fxml");
             } else{
                 /*Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Предупреждение");
@@ -80,6 +82,7 @@ public class Enter {
                 alert.setContentText("Уже все пользователи созданы, пора выбирать");
                 alert.show();*/
 
+                users = session.createQuery("from User where department = :dept").setParameter("dept",cUser.getDepartment()).list();
                 LoadScenes.load("view/MainUserList.fxml");
 
             }

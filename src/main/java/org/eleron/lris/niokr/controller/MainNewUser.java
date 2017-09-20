@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.bussines.Enter;
+import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.bussines.UserBussines;
 import org.eleron.lris.niokr.dao.DepartmentDAOImplements;
 import org.eleron.lris.niokr.dao.UserDAOImplements;
@@ -93,7 +95,11 @@ public class MainNewUser {
 
 //            int result = (1 > 2) ? 1 : 0;
             UserBussines.formedUser(name,sname,fname,department);
+            if(!UserBussines.getUser().equals(null)){
 
+                Enter.setcUser(UserBussines.getUser());
+                LoadScenes.load("view/MainMenu.fxml");
+            }
 
         }catch(Exception e){
             log.error("add user fail", e);

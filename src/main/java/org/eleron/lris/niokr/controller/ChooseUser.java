@@ -3,6 +3,7 @@ package org.eleron.lris.niokr.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -31,13 +32,24 @@ public class ChooseUser {
         }
         users.setItems(observationUserList);
         users.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        users.getSelectionModel().selectFirst();
     }
 
     @FXML
     public void enter(){
 
-        log.info("Заходим под пользователя " + users.getSelectionModel().getSelectedItem());
-        Enter.setcUser(users.getSelectionModel().getSelectedItem());
-        LoadScenes.load("view/MainMenu.fxml");
+        if(users.getSelectionModel().getSelectedItem()!=null){
+
+            log.info("Заходим под пользователя " + users.getSelectionModel().getSelectedItem());
+            Enter.setcUser(users.getSelectionModel().getSelectedItem());
+            LoadScenes.load("view/MainMenu.fxml");
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание");
+            alert.setHeaderText(null);
+            alert.setContentText("Пользователь не выбран");
+        }
+
     }
 }

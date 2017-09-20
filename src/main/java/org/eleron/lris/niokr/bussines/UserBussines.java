@@ -15,6 +15,14 @@ import javax.validation.ValidatorFactory;
 
 public class UserBussines {
 
+    public static User getUser() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        UserBussines.user = user;
+    }
+
     private static User user;
 
     final static Logger log = Logger.getLogger(UserBussines.class);
