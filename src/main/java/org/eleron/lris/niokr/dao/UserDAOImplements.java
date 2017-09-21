@@ -11,6 +11,9 @@ import java.util.List;
 public class UserDAOImplements implements UserDAO{
 
     final static Logger log = Logger.getLogger(UserDAOImplements.class);
+
+    private SessionFactory sessionFactory;
+
     @Override
     public void addUser(User user) {
 
@@ -30,7 +33,7 @@ public class UserDAOImplements implements UserDAO{
             session.close();
         }
     }
-    private SessionFactory sessionFactory;
+
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -45,10 +48,10 @@ public class UserDAOImplements implements UserDAO{
         try{
             session.update(user);
             transaction.commit();
-            log.error("update " + user + " successful");
+            log.info("update " + user + " successful");
         }catch(Exception e){
             transaction.rollback();
-            log.error("update " + user + " fail");
+            log.error("update " + user + " fail",e);
         }finally{
             session.close();
         }

@@ -95,7 +95,7 @@ public class MainNewUser {
 
 //            int result = (1 > 2) ? 1 : 0;
             UserBussines.formedUser(name,sname,fname,department);
-            if(!UserBussines.getUser().equals(null)){
+            if(UserBussines.getUser()!= null){
 
                 Enter.setcUser(UserBussines.getUser());
                 LoadScenes.load("view/MainMenu.fxml");

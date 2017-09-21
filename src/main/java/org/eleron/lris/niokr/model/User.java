@@ -3,6 +3,7 @@ package org.eleron.lris.niokr.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name="users", uniqueConstraints = {
@@ -32,6 +33,17 @@ public class User extends Model {
     @NotNull(message="Имя компьютера не может быть пустым")
     @Column(name="computer",nullable = false)
     private String computer;
+
+    @OneToMany(mappedBy="user")
+    private List<Message> messages;
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
 
     public String getComputer() {
         return computer;

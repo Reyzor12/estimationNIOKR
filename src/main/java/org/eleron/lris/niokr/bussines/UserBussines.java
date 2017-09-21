@@ -61,6 +61,7 @@ public class UserBussines {
                 log.info("user add successful");
             }else {
 
+                user=null;
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText(null);
@@ -70,6 +71,7 @@ public class UserBussines {
 
         } else {
 
+            user=null;
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Предупреждение");
             alert.setHeaderText(null);
