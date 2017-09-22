@@ -44,11 +44,11 @@ public class Message extends Model{
         this.user = user;
     }
 
-    Message(){
+    public Message(){
         super();
     }
 
-    Message(Long id){
+    public Message(Long id){
         super(id);
     }
 }

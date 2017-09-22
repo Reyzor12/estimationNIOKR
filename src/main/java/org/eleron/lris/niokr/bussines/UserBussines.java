@@ -43,6 +43,7 @@ public class UserBussines {
         user.setSname(sname);
         user.setFname(fname);
         user.setDepartment(department);
+        user.setRole(1);
 
         sessionFactory = HibernateUtil.getSessionFactory();
 

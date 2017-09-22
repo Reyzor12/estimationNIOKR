@@ -37,6 +37,18 @@ public class User extends Model {
     @OneToMany(mappedBy="user")
     private List<Message> messages;
 
+    @NotNull(message="Не задана ролья пользователя")
+    @Column(name="role", nullable = false)
+    private Integer role;
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     public List<Message> getMessages() {
         return messages;
     }
