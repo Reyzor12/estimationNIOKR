@@ -55,6 +55,7 @@ public class MainNewUser {
     @FXML
     private Button saveButton;
 
+
     @FXML
     private void initialize() {
         try{

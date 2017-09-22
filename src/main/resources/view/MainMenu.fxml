@@ -30,7 +30,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="87.0" prefWidth="171.0" text="Добавить нового&#10;пользователя" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Button mnemonicParsing="false" fx:id="addNewUser" onAction="#addUser" prefHeight="87.0" prefWidth="171.0" text="Добавить нового&#10;пользователя" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>

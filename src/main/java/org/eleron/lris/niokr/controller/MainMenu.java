@@ -20,4 +20,9 @@ public class MainMenu {
     public void addReport(){
         LoadScenes.load("view/ReviewMenu.fxml");
     }
+
+    @FXML
+    public void addUser(){
+        LoadScenes.load("view/NewUser.fxml");
+    }
 }
