@@ -70,9 +70,9 @@ public class Enter {
         try{
 
 
-            cUser = (User)session.createQuery("from User where computer = :comp").setParameter("comp",computer).uniqueResult();
-
-            if(cUser==null){
+            users = (List<User>)session.createQuery("from User where computer = :comp").setParameter("comp",computer).list();
+            
+            if(users==null){
 
                 LoadScenes.load("view/MainNewUser.fxml");
             } else{
@@ -81,6 +81,7 @@ public class Enter {
                 alert.setHeaderText(null);
                 alert.setContentText("Уже все пользователи созданы, пора выбирать");
                 alert.show();*/
+                cUser = users.get(0);
 
                 users = session.createQuery("from User where department = :dept").setParameter("dept",cUser.getDepartment()).list();
                 LoadScenes.load("view/MainUserList.fxml");
