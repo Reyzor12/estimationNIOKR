@@ -71,7 +71,7 @@ public class Enter {
 
 
             users = (List<User>)session.createQuery("from User where computer = :comp").setParameter("comp",computer).list();
-            
+
             if(users==null){
 
                 LoadScenes.load("view/MainNewUser.fxml");
