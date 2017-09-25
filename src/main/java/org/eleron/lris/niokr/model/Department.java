@@ -14,7 +14,7 @@ public class Department extends Model{
     @NotNull(message="Выбирите отдел!")
     private String name;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department",cascade=CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 
     @OneToMany(mappedBy = "department")

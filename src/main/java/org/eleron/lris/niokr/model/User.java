@@ -1,5 +1,8 @@
 package org.eleron.lris.niokr.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,7 +29,7 @@ public class User extends Model {
     private String fname;
 
     @NotNull(message="Не задано подрзделение пользователя")
-    @ManyToOne(fetch= FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="department",referencedColumnName="id")
     private Department department;
 
@@ -34,7 +37,7 @@ public class User extends Model {
     @Column(name="computer",nullable = false)
     private String computer;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL,orphanRemoval=true)
     private List<Message> messages;
 
     @NotNull(message="Не задана ролья пользователя")

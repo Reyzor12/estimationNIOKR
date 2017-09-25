@@ -59,7 +59,6 @@ public class NewUser {
             UserBussines.formedUser(name,sname,fname,department);
             if(UserBussines.getUser()!= null){
 
-                Enter.setcUser(UserBussines.getUser());
                 LoadScenes.load("view/MainMenu.fxml");
             }
 

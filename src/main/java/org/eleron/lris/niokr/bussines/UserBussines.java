@@ -101,4 +101,22 @@ public class UserBussines {
         }
 
     }
+
+    public static void cascadeDeleteUser(Long id) {
+
+        log.info("cascade delete user " + id);
+        Session session = Enter.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+
+            session.delete(session.get(User.class,id));
+            transaction.commit();
+        } catch(Exception e){
+            transaction.rollback();
+            log.error("cascade delete fail",e);
+        }finally{
+            session.close();
+        }
+    }
 }
