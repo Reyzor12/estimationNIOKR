@@ -7,11 +7,14 @@ import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.HibernateUtil;
 import org.eleron.lris.niokr.util.ValidationUtil;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.List;
 
 public class UserBussines {
 
@@ -59,6 +62,23 @@ public class UserBussines {
                 UserDAOImplements userDAO = new UserDAOImplements();
                 userDAO.setSessionFactory(sessionFactory);
                 userDAO.addUser(user);
+                Session session = sessionFactory.openSession();
+                Transaction transaction = session.beginTransaction();
+
+                try{
+                    user = ((List<User>) (session.createQuery("from User where name = :n and sname=:s and fname=:f")
+                            .setParameter("n",name)
+                            .setParameter("s",sname)
+                            .setParameter("f",fname))
+                            .list())
+                            .get(0);
+
+                }catch(Exception e){
+                    transaction.rollback();
+                    log.error("error add user to BussinesUser",e);
+                }finally{
+                    session.close();
+                }
                 log.info("user add successful");
             }else {
 

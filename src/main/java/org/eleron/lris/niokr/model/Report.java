@@ -2,10 +2,7 @@ package org.eleron.lris.niokr.model;
 
 import org.apache.log4j.Logger;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -39,8 +36,13 @@ public class Report extends Model{
     private Integer persentOfMonth;
 
 
+    @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL )
+    @JoinTable(name="report_user", joinColumns={@JoinColumn(name="report_id")},inverseJoinColumns={@JoinColumn(name="user_id")})
     private List<User> users;
 
+    @NotNull(message = "Данное поле не может бвть пустым")
+    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name="department", referencedColumnName = "id")
     private Department department;
 
     @NotNull(message="Данное поле должно быть заполнено")
@@ -58,6 +60,102 @@ public class Report extends Model{
     @NotNull(message="Данное поле должно быть заполнено")
     @Column(name="years_end", nullable = false)
     private Integer yearsEnd;
+
+    public String getNameShort() {
+        return nameShort;
+    }
+
+    public void setNameShort(String nameShort) {
+        this.nameShort = nameShort;
+    }
+
+    public String getNameLong() {
+        return nameLong;
+    }
+
+    public void setNameLong(String nameLong) {
+        this.nameLong = nameLong;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getTrouble() {
+        return trouble;
+    }
+
+    public void setTrouble(String trouble) {
+        this.trouble = trouble;
+    }
+
+    public Integer getPersentOfYear() {
+        return persentOfYear;
+    }
+
+    public void setPersentOfYear(Integer persentOfYear) {
+        this.persentOfYear = persentOfYear;
+    }
+
+    public Integer getPersentOfMonth() {
+        return persentOfMonth;
+    }
+
+    public void setPersentOfMonth(Integer persentOfMonth) {
+        this.persentOfMonth = persentOfMonth;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Integer getYearsStart() {
+        return yearsStart;
+    }
+
+    public void setYearsStart(Integer yearsStart) {
+        this.yearsStart = yearsStart;
+    }
+
+    public Integer getYearsEnd() {
+        return yearsEnd;
+    }
+
+    public void setYearsEnd(Integer yearsEnd) {
+        this.yearsEnd = yearsEnd;
+    }
 
     public Report(){
         super();

@@ -14,5 +14,6 @@
         <mapping class="org.eleron.lris.niokr.model.User"/>
         <mapping class="org.eleron.lris.niokr.model.Department"/>
         <mapping class="org.eleron.lris.niokr.model.Message"/>
+        <mapping class="org.eleron.lris.niokr.model.Report"/>
     </session-factory>
 </hibernate-configuration>

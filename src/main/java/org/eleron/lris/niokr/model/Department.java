@@ -3,6 +3,7 @@ package org.eleron.lris.niokr.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,17 @@ public class Department extends Model{
 
     @OneToMany(mappedBy = "department")
     private Set<User> users = new HashSet<User>();
+
+    @OneToMany(mappedBy = "department")
+    private List<Report> reports;
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
+    }
 
     public String getName() {
         return name;

@@ -67,7 +67,6 @@ public class ReviewMenu {
             messageTo.setMessage(msg);
             messageTo.setUser(Enter.getcUser());
 
-
             try{
                 messageTo.setDate(TimeManager.currentDate());
                 MessageDAOImplements messageDAO = new MessageDAOImplements();

@@ -72,7 +72,7 @@ public class Enter {
 
             users = (List<User>)session.createQuery("from User where computer = :comp").setParameter("comp",computer).list();
 
-            if(users==null){
+            if(users.isEmpty()){
 
                 LoadScenes.load("view/MainNewUser.fxml");
             } else{
