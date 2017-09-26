@@ -7,10 +7,22 @@ import org.eleron.lris.niokr.bussines.LoadScenes;
 public class MainMenu {
 
     @FXML
+    private Button findBtn;
+
+    @FXML
+    private Button editReportBtn;
+
+    @FXML
+    private Button fillReportBtn;
+
+    @FXML
     private Button supportBtn;
 
     @FXML
     private Button addNewUser;
+
+    @FXML
+    private Button addNewReport;
 
     public void initialize(){
 
