@@ -38,7 +38,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="supportBtn" mnemonicParsing="false" onAction="#addReport" prefHeight="75.0" prefWidth="241.0" text="Оставить отзыв" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="supportBtn" mnemonicParsing="false" onAction="#addMessage" prefHeight="75.0" prefWidth="241.0" text="Оставить отзыв" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
@@ -91,7 +91,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Button fx:id="addNewReport" mnemonicParsing="false" text="Добавить" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button fx:id="addNewReport" onAction="#addReport" mnemonicParsing="false" text="Добавить" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children></AnchorPane>

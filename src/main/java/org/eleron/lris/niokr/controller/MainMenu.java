@@ -29,12 +29,18 @@ public class MainMenu {
     }
 
     @FXML
-    public void addReport(){
+    public void addMessage(){
         LoadScenes.load("view/ReviewMenu.fxml");
     }
 
     @FXML
     public void addUser(){
         LoadScenes.load("view/NewUser.fxml");
+    }
+
+    @FXML
+    public void addReport(){
+
+        LoadScenes.load("view/NewReportWindow.fxml");
     }
 }

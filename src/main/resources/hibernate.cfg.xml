@@ -15,5 +15,6 @@
         <mapping class="org.eleron.lris.niokr.model.Department"/>
         <mapping class="org.eleron.lris.niokr.model.Message"/>
         <mapping class="org.eleron.lris.niokr.model.Report"/>
+        <mapping class="org.eleron.lris.niokr.model.DateOfReports"/>
     </session-factory>
 </hibernate-configuration>
