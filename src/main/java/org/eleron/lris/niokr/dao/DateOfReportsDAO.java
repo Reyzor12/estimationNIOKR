@@ -8,7 +8,7 @@ public interface DateOfReportsDAO {
 
     public void addDateOfReports(DateOfReports dateOfReports);
     public void updateDateOfReports(DateOfReports dateOfReports);
-    public List<DateOfReportsDAO> listDateOfReports();
-    public DateOfReportsDAO getDateOfReports(Long id);
+    public List<DateOfReports> listDateOfReports();
+    public DateOfReports getDateOfReports(Long id);
     public void removeDateOfReports(Long id);
 }
