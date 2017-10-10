@@ -4,10 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
 import org.eleron.lris.niokr.model.DateOfReports;
+import org.eleron.lris.niokr.model.User;
 
 import java.util.List;
 
@@ -40,7 +42,16 @@ public class NewReportControl {
     private ComboBox<Integer> endReport;
 
     @FXML
-    private TableView usersTable;
+    private TableView<User> usersTable;
+
+    @FXML
+    private TableColumn<User, String> nameCol;
+
+    @FXML
+    private TableColumn<User,String> snameCol;
+
+    @FXML
+    private TableColumn<User,String> fnameCol;
 
     @FXML
     private Button saveBtn;
@@ -64,6 +75,12 @@ public class NewReportControl {
         ObservableList<Integer> date = FXCollections.observableArrayList(years);
         startReport.setItems(date);
         endReport.setItems(date);
+        ObservableList<User> users = FXCollections.observableArrayList(Enter.getUsers());
+        nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+        snameCol.setCellValueFactory(new PropertyValueFactory<User,String>("sname"));
+        fnameCol.setCellValueFactory(new PropertyValueFactory<User,String>("fname"));
+        usersTable.setItems(users);
+        usersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
 

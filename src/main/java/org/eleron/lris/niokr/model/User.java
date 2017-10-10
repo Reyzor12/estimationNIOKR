@@ -111,6 +111,8 @@ public class User extends Model {
         this.computer=System.getenv("USERNAME");
     }
 
+    public String getFullName(){return this.getName() + " " + this.getSname() + " " + this.getFname();}
+
     public String toString(){
         return this.getName() + " " + this.getSname() + " " + this.getFname();
     }
