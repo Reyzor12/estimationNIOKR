@@ -25,6 +25,8 @@ public class Enter {
 
     private static User cUser;
 
+    private static List<Integer> dateOfReports;
+
     private static SessionFactory sessionFactory;
 
     public static String getComputer() {
@@ -57,6 +59,14 @@ public class Enter {
 
     public static void setcUser(User cUser) {
         Enter.cUser = cUser;
+    }
+
+    public static List<Integer> getDateOfReports() {
+        return dateOfReports;
+    }
+
+    public static void setDateOfReports(List<Integer> dateOfReports) {
+        Enter.dateOfReports = dateOfReports;
     }
 
     public static Set<User> welcome(){

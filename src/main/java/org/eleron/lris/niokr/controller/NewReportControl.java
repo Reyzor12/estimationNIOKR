@@ -1,11 +1,19 @@
 package org.eleron.lris.niokr.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
-import org.eleron.lris.niokr.model.User;
+import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
+import org.eleron.lris.niokr.model.DateOfReports;
+
+import java.util.List;
 
 public class NewReportControl {
+
+    private List<Integer> years;
 
     @FXML
     private Label shortReportNameLabel;
@@ -29,7 +37,7 @@ public class NewReportControl {
     private ComboBox<Integer> startReport;
 
     @FXML
-    private ComboBox<String> endReport;
+    private ComboBox<Integer> endReport;
 
     @FXML
     private TableView usersTable;
@@ -40,13 +48,63 @@ public class NewReportControl {
     @FXML
     private Button returnBtn;
 
+    private List<Integer> start;
+    private List<Integer> end;
+
+    private int flag;
+
     @FXML
     private void initialize(){
+        if(Enter.getDateOfReports() == null){
+            Enter.setDateOfReports(new DateOfReportsDAOImplements().getDates());
+        }
+        years = Enter.getDateOfReports();
+        start = years.subList(0,years.size());
+        end = years.subList(0,years.size());
+        ObservableList<Integer> date = FXCollections.observableArrayList(years);
+        startReport.setItems(date);
+        endReport.setItems(date);
 
     }
 
     @FXML
     public void returnToMainMenu(){
         LoadScenes.load("view/MainMenu.fxml");
+    }
+
+    @FXML
+    public void dateChooserEnd(){
+        if(flag == 1) return;
+        System.out.println(1);
+        int index = endReport.getSelectionModel().getSelectedItem();
+        if(index != -1){
+            System.out.println("index - " + years.indexOf(index) + " - " + index);
+            flag = 1;
+            startReport.setItems(FXCollections.observableArrayList(years.subList(0,years.indexOf(index))));
+            flag = 0;
+        }
+        /*if(index == -1){
+            endReport.setItems(FXCollections.observableArrayList(years));
+        }else{
+            endReport.setItems(FXCollections.observableArrayList(index,years.size()));
+        }*/
+    }
+
+    @FXML
+    public void dateChooserStart(){
+        if (flag == 1) return;
+        System.out.println(3);
+        int index = startReport.getSelectionModel().getSelectedItem();
+        if(index != -1){
+            System.out.println("index - " + years.indexOf(index)+ " - " + index);
+            flag = 1;
+            endReport.setItems(FXCollections.observableArrayList(years.subList(years.indexOf(index)+1,years.size())));
+            flag = 0;
+        }
+        /*if(index == -1){
+            startReport.setItems(FXCollections.observableArrayList(years));
+        } else{
+            startReport.setItems(FXCollections.observableArrayList(0,index));
+        }*/
     }
 }

@@ -109,4 +109,29 @@ public class DateOfReportsDAOImplements implements DateOfReportsDAO {
             session.close();
         }
     }
+
+    @Override
+    public List<Integer> getDates() {
+
+        log.info("getDates dateOfReport");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Integer> dates = null;
+        try{
+            dates = (List<Integer>)session.createSQLQuery("select year from date_of_reports").list();
+
+            transaction.commit();
+            log.info("getDates dateOfReports successful");
+        }catch(Exception e){
+            transaction.rollback();
+            log.error("fail getDates dateOfReports",e);
+        }finally{
+            session.close();
+        }
+
+        return dates;
+    }
+
+
 }

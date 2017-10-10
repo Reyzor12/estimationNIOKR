@@ -11,4 +11,5 @@ public interface DateOfReportsDAO {
     public List<DateOfReports> listDateOfReports();
     public DateOfReports getDateOfReports(Long id);
     public void removeDateOfReports(Long id);
+    List<Integer> getDates();
 }
