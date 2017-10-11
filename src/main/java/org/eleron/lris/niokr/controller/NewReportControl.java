@@ -1,18 +1,16 @@
 package org.eleron.lris.niokr.controller;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
+import org.eleron.lris.niokr.bussines.Person;
+import org.eleron.lris.niokr.bussines.UserBussines;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
-import org.eleron.lris.niokr.model.DateOfReports;
 import org.eleron.lris.niokr.model.User;
 
 import java.util.List;
@@ -46,19 +44,19 @@ public class NewReportControl {
     private ComboBox<Integer> endReport;
 
     @FXML
-    private TableView<User> usersTable;
+    private TableView<Person> usersTable;
 
     @FXML
-    private TableColumn<User, String> nameCol;
+    private TableColumn<Person, String> nameCol;
 
     @FXML
-    private TableColumn<User,String> snameCol;
+    private TableColumn<Person,String> snameCol;
 
     @FXML
-    private TableColumn<User,String> fnameCol;
+    private TableColumn<Person,String> fnameCol;
 
     @FXML
-    private TableColumn<User,Boolean> partyCol;
+    private TableColumn<Person,Boolean> partyCol;
 
     @FXML
     private Button saveBtn;
@@ -82,13 +80,13 @@ public class NewReportControl {
         ObservableList<Integer> date = FXCollections.observableArrayList(years);
         startReport.setItems(date);
         endReport.setItems(date);
-        ObservableList<User> users = FXCollections.observableArrayList(Enter.getUsers());
-        nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
-        snameCol.setCellValueFactory(new PropertyValueFactory<User,String>("sname"));
-        fnameCol.setCellValueFactory(new PropertyValueFactory<User,String>("fname"));
-//        partyCol.setCellValueFactory(new PropertyValueFactory<User,String>("fname"));
+        ObservableList<Person> persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getUsers()));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
+        snameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("sname"));
+        fnameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("fname"));
+        partyCol.setCellValueFactory(new PropertyValueFactory<Person,Boolean>("check"));
         partyCol.setCellFactory(column->new CheckBoxTableCell());
-        usersTable.setItems(users);
+        usersTable.setItems(persons);
 
     }
 
@@ -122,10 +120,15 @@ public class NewReportControl {
             endReport.setItems(FXCollections.observableArrayList(years.subList(years.indexOf(index)+1,years.size())));
             flag = 0;
         }
-        /*if(index == -1){
-            startReport.setItems(FXCollections.observableArrayList(years));
-        } else{
-            startReport.setItems(FXCollections.observableArrayList(0,index));
-        }*/
+
+    }
+
+    @FXML
+    public void addReport(){
+        String name = shortReportNameText.getText();
+        String fullName = longReportNameText.getText();
+        Integer start = startReport.getSelectionModel().getSelectedItem();
+        Integer end = endReport.getSelectionModel().getSelectedItem();
+
     }
 }

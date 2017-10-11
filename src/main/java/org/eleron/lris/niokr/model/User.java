@@ -1,5 +1,6 @@
 package org.eleron.lris.niokr.model;
 
+import javafx.beans.property.BooleanProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

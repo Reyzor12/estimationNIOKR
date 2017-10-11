@@ -14,6 +14,7 @@ import org.hibernate.Transaction;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserBussines {
@@ -118,5 +119,18 @@ public class UserBussines {
         }finally{
             session.close();
         }
+    }
+
+    public static List<Person> toPerson(List<User> users){
+        List<Person> persons = new ArrayList<Person>();
+        if(users==null)return persons;
+        for(User user:users){
+
+            Person person = new Person(user,false);
+
+            persons.add(person);
+
+        }
+        return persons;
     }
 }
