@@ -89,7 +89,6 @@ public class NewReportControl {
 //        partyCol.setCellValueFactory(new PropertyValueFactory<User,String>("fname"));
         partyCol.setCellFactory(column->new CheckBoxTableCell());
         usersTable.setItems(users);
-        usersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
 
