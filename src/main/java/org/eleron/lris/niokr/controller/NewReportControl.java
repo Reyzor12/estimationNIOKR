@@ -1,10 +1,14 @@
 package org.eleron.lris.niokr.controller;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
@@ -54,6 +58,9 @@ public class NewReportControl {
     private TableColumn<User,String> fnameCol;
 
     @FXML
+    private TableColumn<User,Boolean> partyCol;
+
+    @FXML
     private Button saveBtn;
 
     @FXML
@@ -79,6 +86,8 @@ public class NewReportControl {
         nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         snameCol.setCellValueFactory(new PropertyValueFactory<User,String>("sname"));
         fnameCol.setCellValueFactory(new PropertyValueFactory<User,String>("fname"));
+//        partyCol.setCellValueFactory(new PropertyValueFactory<User,String>("fname"));
+        partyCol.setCellFactory(column->new CheckBoxTableCell());
         usersTable.setItems(users);
         usersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -92,10 +101,8 @@ public class NewReportControl {
     @FXML
     public void dateChooserEnd(){
         if(flag == 1) return;
-        System.out.println(1);
         int index = endReport.getSelectionModel().getSelectedItem();
         if(index != -1){
-            System.out.println("index - " + years.indexOf(index) + " - " + index);
             flag = 1;
             startReport.setItems(FXCollections.observableArrayList(years.subList(0,years.indexOf(index))));
             flag = 0;
@@ -110,10 +117,8 @@ public class NewReportControl {
     @FXML
     public void dateChooserStart(){
         if (flag == 1) return;
-        System.out.println(3);
         int index = startReport.getSelectionModel().getSelectedItem();
         if(index != -1){
-            System.out.println("index - " + years.indexOf(index)+ " - " + index);
             flag = 1;
             endReport.setItems(FXCollections.observableArrayList(years.subList(years.indexOf(index)+1,years.size())));
             flag = 0;

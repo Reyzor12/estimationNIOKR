@@ -58,7 +58,7 @@ public class NewUser {
 //            int result = (1 > 2) ? 1 : 0;
             UserBussines.formedUser(name,sname,fname,department);
             if(UserBussines.getUser()!= null){
-
+                Enter.reloadUsersList();
                 LoadScenes.load("view/MainMenu.fxml");
             }
 

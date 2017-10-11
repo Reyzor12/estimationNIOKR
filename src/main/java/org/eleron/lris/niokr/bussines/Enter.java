@@ -69,6 +69,22 @@ public class Enter {
         Enter.dateOfReports = dateOfReports;
     }
 
+    public static void reloadUsersList(){
+        log.info("Reload userlist");
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try{
+            users = session.createQuery("from User where department = :dept").setParameter("dept",cUser.getDepartment()).list();
+            transaction.commit();
+            log.info("get userList for session");
+        } catch(Exception e){
+            log.error("fail get UserList for this session");
+            transaction.rollback();
+        }finally{
+            session.close();
+        }
+    }
+
     public static Set<User> welcome(){
 
         log.info("Начало проверки юзеров на данном компьютере");
