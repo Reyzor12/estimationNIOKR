@@ -1,8 +1,17 @@
 package org.eleron.lris.niokr.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.eleron.lris.niokr.bussines.LoadScenes;
+import org.eleron.lris.niokr.bussines.ReportBussines;
+import org.eleron.lris.niokr.model.Report;
+
+import java.util.List;
 
 public class MainMenu {
 
@@ -24,8 +33,16 @@ public class MainMenu {
     @FXML
     private Button addNewReport;
 
+    @FXML
+    private TableView<Report> tableView;
+
+    @FXML
+    private TableColumn<Report,String> columnName;
+
+    @FXML
     public void initialize(){
 
+        refreshTable();
     }
 
     @FXML
@@ -42,5 +59,12 @@ public class MainMenu {
     public void addReport(){
 
         LoadScenes.load("view/NewReportWindow.fxml");
+    }
+
+    public void refreshTable(){
+        List<Report> reports = ReportBussines.loadReportMain();
+        ObservableList<Report> reportsObs = FXCollections.observableArrayList(reports);
+        columnName.setCellValueFactory(new PropertyValueFactory<Report,String>("nameShort"));
+        tableView.setItems(reportsObs);
     }
 }

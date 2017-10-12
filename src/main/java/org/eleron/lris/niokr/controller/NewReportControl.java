@@ -8,6 +8,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.eleron.lris.niokr.bussines.*;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
+import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.AlertUtil;
 
@@ -141,6 +142,6 @@ public class NewReportControl {
             ReportBussines.saveNewReportDB(name,fullName,start,end,users);
             LoadScenes.load("view/MainMenu.fxml");
         }
-
     }
+
 }

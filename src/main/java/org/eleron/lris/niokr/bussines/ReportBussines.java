@@ -3,6 +3,7 @@ package org.eleron.lris.niokr.bussines;
 import org.eleron.lris.niokr.dao.ReportDAO;
 import org.eleron.lris.niokr.dao.ReportDAOImplements;
 import org.eleron.lris.niokr.model.DateOfReports;
+import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 
@@ -36,5 +37,9 @@ public class ReportBussines {
            end==0||
            users.isEmpty()) return false;
         return true;
+    }
+
+    public static List<Report> loadReportMain(){
+        return new ReportDAOImplements().listDepartmentReport(Enter.getcUser().getDepartment());
     }
 }

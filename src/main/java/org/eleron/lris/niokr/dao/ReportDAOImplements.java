@@ -1,6 +1,7 @@
 package org.eleron.lris.niokr.dao;
 
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.util.HibernateUtil;
 import org.hibernate.Session;
@@ -85,7 +86,7 @@ public class ReportDAOImplements implements ReportDAO{
         List<Report> reports=null;
         try{
             log.info("get list of reports");
-            reports = session.createQuery("from Reports").list();
+            reports = session.createQuery("from Report").list();
             transaction.commit();
             log.info("have list of reports");
         }catch(Exception e){
@@ -116,5 +117,27 @@ public class ReportDAOImplements implements ReportDAO{
             session.close();
         }
         return report;
+    }
+
+    @Override
+    public List<Report> listDepartmentReport(Department department) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Report> reports=null;
+        try{
+            log.info("get list of department reports ");
+            reports = session.createQuery("from Report where department = :dept")
+                    .setParameter("dept",department)
+                    .list();
+            transaction.commit();
+            log.info("have list of department reports");
+        }catch(Exception e){
+            transaction.rollback();
+            log.error("fail to get department list",e);
+        }finally {
+            session.close();
+        }
+        return reports;
     }
 }
