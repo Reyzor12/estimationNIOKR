@@ -61,9 +61,16 @@ public class MainMenu {
         LoadScenes.load("view/NewReportWindow.fxml");
     }
 
+    public void findReport(String request){
+        for(int i=0;i<tableView.getItems().size();i++){
+            if(tableView.getItems().get(i).getNameShort().matches(request)){
+                tableView.getColumns().
+            }
+        }
+    }
+
     public void refreshTable(){
-        List<Report> reports = ReportBussines.loadReportMain();
-        ObservableList<Report> reportsObs = FXCollections.observableArrayList(reports);
+        ObservableList<Report> reportsObs = FXCollections.observableArrayList(ReportBussines.loadReportMain());
         columnName.setCellValueFactory(new PropertyValueFactory<Report,String>("nameShort"));
         tableView.setItems(reportsObs);
     }
