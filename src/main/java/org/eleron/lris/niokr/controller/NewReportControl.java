@@ -6,13 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.eleron.lris.niokr.bussines.Enter;
-import org.eleron.lris.niokr.bussines.LoadScenes;
-import org.eleron.lris.niokr.bussines.Person;
-import org.eleron.lris.niokr.bussines.UserBussines;
+import org.eleron.lris.niokr.bussines.*;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
 import org.eleron.lris.niokr.model.User;
+import org.eleron.lris.niokr.util.AlertUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewReportControl {
@@ -129,6 +128,19 @@ public class NewReportControl {
         String fullName = longReportNameText.getText();
         Integer start = startReport.getSelectionModel().getSelectedItem();
         Integer end = endReport.getSelectionModel().getSelectedItem();
+        Person[] persons = new Person[usersTable.getItems().size()];
+        List<User> users = new ArrayList<User>();
+        for (Person person: usersTable.getItems().toArray( persons)) {
+            if(person.isCheck()){
+                users.add(person.getUser());
+            }
+        }
+        if(!ReportBussines.check(name,fullName,start,end,users)){
+            AlertUtil.getAlert("Не все поля были заполнены или не было выбрано ни одного исполнителя!");
+        }else{
+            ReportBussines.saveNewReportDB(name,fullName,start,end,users);
+            LoadScenes.load("view/MainMenu.fxml");
+        }
 
     }
 }

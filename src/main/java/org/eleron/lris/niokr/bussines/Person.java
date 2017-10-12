@@ -15,7 +15,7 @@ public class Person {
 
     Person(){}
     Person(User user,Boolean check){
-        
+
         this.user=user;
         this.check.setValue(check);
         this.name=user.getName();

@@ -21,12 +21,10 @@ public class Report extends Model{
     @Column(name="full_name", nullable = false)
     private String nameLong;
 
-    @NotNull(message="Данное поле должно быть заполнено")
-    @Column(name="text", nullable = false)
+    @Column(name="text")
     private String text;
 
-    @NotNull(message="Данное поле должно быть заполнено")
-    @Column(name="trouble",nullable=false)
+    @Column(name="trouble")
     private String trouble;
 
     @Column(name="year")
@@ -164,4 +162,5 @@ public class Report extends Model{
     public Report(Long id){
         super(id);
     }
+
 }

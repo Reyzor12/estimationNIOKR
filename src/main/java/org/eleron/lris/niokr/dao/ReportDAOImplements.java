@@ -19,7 +19,7 @@ public class ReportDAOImplements implements ReportDAO{
         Transaction transaction = session.beginTransaction();
         try{
             log.info("add report");
-            session.merge(session);
+            session.merge(report);
             transaction.commit();
             log.info("add report successful");
 

@@ -35,7 +35,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="saveBtm" mnemonicParsing="false" prefHeight="87.0" prefWidth="171.0" text="Сохранить" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Button fx:id="saveBtm" onAction="#addReport" mnemonicParsing="false" prefHeight="87.0" prefWidth="171.0" text="Сохранить" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
