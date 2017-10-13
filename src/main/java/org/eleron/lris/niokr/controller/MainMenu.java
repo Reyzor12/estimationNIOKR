@@ -2,14 +2,19 @@ package org.eleron.lris.niokr.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.bussines.ReportBussines;
 import org.eleron.lris.niokr.model.Report;
 
-import java.util.List;
+import java.util.function.Predicate;
 
 public class MainMenu {
 
@@ -40,13 +45,17 @@ public class MainMenu {
     @FXML
     private TextField findReportField;
 
+    private ObservableList<Report> reportsObs;
+
     @FXML
     public void initialize(){
 
         refreshTable();
-
+        filter = new FilteredList<>(reportsObs, e->true);
 
     }
+
+    FilteredList<Report> filter ;
 
     @FXML
     public void addMessage(){
@@ -64,32 +73,38 @@ public class MainMenu {
         LoadScenes.load("view/NewReportWindow.fxml");
     }
 
-    public void findReport(String request){
-        tableView.setRowFactory(item->new TableRow<Report>(){
-            public void updateItem(Report report, boolean okey){
-                super.updateItem(report,okey);
-                if(request!="" && report.getNameShort().matches(request)){
-                    setStyle("-fx-background-color: tomato;");
-                } else{
-                    setStyle("");
-                }
-            }
-        });
-        /*for(int i=0;i<tableView.getItems().size();i++){
-            if(tableView.getItems().get(i).getNameShort().matches(request)){
-                tableView.getColumns().
-            }
-        }*/
-    }
 
     public void refreshTable(){
-        ObservableList<Report> reportsObs = FXCollections.observableArrayList(ReportBussines.loadReportMain());
+        reportsObs = FXCollections.observableArrayList(ReportBussines.loadReportMain());
         columnName.setCellValueFactory(new PropertyValueFactory<Report,String>("nameShort"));
         tableView.setItems(reportsObs);
     }
 
+
+
+
     @FXML
-    public void findReport(){
-        findReport(findReportField.getText());
+    public void search(KeyEvent event){
+
+        findReportField.textProperty().addListener((observable,oldValue,newValue)->{
+
+            filter.setPredicate((Predicate<? super Report>) (Report report)->{
+
+                if(newValue.isEmpty() || newValue==null){
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if(report.getNameShort().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }
+
+                return false;
+            });
+
+        });
+        SortedList<Report> sort = new SortedList(filter);
+        sort.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sort);
     }
+
 }
