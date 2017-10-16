@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.MainApp;
+import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,6 +29,16 @@ public class Enter {
     private static List<Integer> dateOfReports;
 
     private static SessionFactory sessionFactory;
+
+    private static Report consideredReport;
+
+    public static Report getConsideredReport() {
+        return consideredReport;
+    }
+
+    public static void setConsideredReport(Report consideredReport) {
+        Enter.consideredReport = consideredReport;
+    }
 
     public static String getComputer() {
         return computer;

@@ -11,6 +11,8 @@ import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.AlertUtil;
+import org.eleron.lris.niokr.util.HibernateUtil;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,34 +66,16 @@ public class NewReportControl {
     @FXML
     private Button returnBtn;
 
-    private List<Integer> start;
-    private List<Integer> end;
-
     private int flag;
 
     @FXML
     private void initialize(){
-        if(Enter.getDateOfReports() == null){
-            Enter.setDateOfReports(new DateOfReportsDAOImplements().getDates());
-        }
-        years = Enter.getDateOfReports();
-        start = years.subList(0,years.size());
-        end = years.subList(0,years.size());
-        ObservableList<Integer> date = FXCollections.observableArrayList(years);
-        startReport.setItems(date);
-        endReport.setItems(date);
-        ObservableList<Person> persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getUsers()));
-        nameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
-        snameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("sname"));
-        fnameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("fname"));
-        partyCol.setCellValueFactory(new PropertyValueFactory<Person,Boolean>("check"));
-        partyCol.setCellFactory(column->new CheckBoxTableCell());
-        usersTable.setItems(persons);
-
+        loadDataReport(Enter.getConsideredReport());
     }
 
     @FXML
     public void returnToMainMenu(){
+        Enter.setConsideredReport(null);
         LoadScenes.load("view/MainMenu.fxml");
     }
 
@@ -144,4 +128,41 @@ public class NewReportControl {
         }
     }
 
+    private void loadDataReport(Report report){
+
+        ObservableList<Person> persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getUsers()));
+
+        if(Enter.getDateOfReports() == null){
+            Enter.setDateOfReports(new DateOfReportsDAOImplements().getDates());
+        }
+        years = Enter.getDateOfReports();
+        ObservableList<Integer> date = FXCollections.observableArrayList(years);
+        startReport.setItems(date);
+        endReport.setItems(date);
+
+        if(report == null) {
+
+        }else{
+            shortReportNameText.setText(report.getNameShort());
+            longReportNameText.setText(report.getNameLong());
+
+            endReport.setItems(FXCollections.observableArrayList(years.subList(years.indexOf(report.getYearsEnd())+1,years.size())));
+            startReport.setItems(FXCollections.observableArrayList(years.subList(0,years.indexOf(report.getYearsEnd()))));
+            startReport.setValue(report.getYearsStart());
+            endReport.setValue(report.getYearsEnd());
+            List<User> users = report.getUsers();
+            for(Person person: persons){
+                if(users.contains(person.getUser())){
+                    person.setCheck(true);
+                }
+            }
+        }
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
+        snameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("sname"));
+        fnameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("fname"));
+        partyCol.setCellValueFactory(new PropertyValueFactory<Person,Boolean>("check"));
+        partyCol.setCellFactory(column->new CheckBoxTableCell());
+        usersTable.setItems(persons);
+    }
 }

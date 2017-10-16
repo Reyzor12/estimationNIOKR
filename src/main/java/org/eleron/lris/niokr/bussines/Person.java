@@ -67,4 +67,24 @@ public class Person {
     public void setFname(String fname) {
         this.fname = fname;
     }
+
+    public boolean equals(Object object){
+
+        if(object instanceof Person){
+            Person per = (Person) object;
+            if(per.getUser().equals(getUser())){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if(object instanceof User){
+                User user = (User) object;
+                if(user.equals(getUser())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

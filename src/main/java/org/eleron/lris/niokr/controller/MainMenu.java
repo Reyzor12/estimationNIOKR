@@ -10,9 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.bussines.ReportBussines;
 import org.eleron.lris.niokr.model.Report;
+import org.eleron.lris.niokr.util.AlertUtil;
 
 import java.util.function.Predicate;
 
@@ -71,6 +73,17 @@ public class MainMenu {
     public void addReport(){
 
         LoadScenes.load("view/NewReportWindow.fxml");
+    }
+
+    @FXML
+    public void editReport(){
+
+        if(tableView.getSelectionModel().getSelectedIndex() == -1){
+            AlertUtil.getAlert("Не выбран ни один НИОКР для редактирования!");
+        } else{
+            Enter.setConsideredReport(tableView.getSelectionModel().getSelectedItem());
+            LoadScenes.load("view/NewReportWindow.fxml");
+        }
     }
 
 

@@ -118,4 +118,12 @@ public class User extends Model {
         return this.getName() + " " + this.getSname() + " " + this.getFname();
     }
 
+    public boolean equals(Object object){
+        if(object instanceof User){
+            if(((User)object).getId()==getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

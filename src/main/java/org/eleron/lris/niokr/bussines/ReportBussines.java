@@ -13,17 +13,31 @@ import java.util.List;
 public class ReportBussines {
 
     public static void saveNewReportDB(String name, String fullName, Integer start, Integer end, List<User> users){
-        Report report = new Report();
-        report.setNameShort(name);
-        report.setNameLong(fullName);
-        report.setYearsStart(start);
-        report.setYearsEnd(end);
-        report.setUsers(users);
-        report.setDate(new Date());
-        report.setStatus(0);
-        report.setDepartment(Enter.getcUser().getDepartment());
+        Report report = null;
         ReportDAO reportDAO = new ReportDAOImplements();
-        reportDAO.addReport(report);
+        if(Enter.getConsideredReport()==null){
+            report = new Report();
+            report.setNameShort(name);
+            report.setNameLong(fullName);
+            report.setYearsStart(start);
+            report.setYearsEnd(end);
+            report.setUsers(users);
+            report.setDate(new Date());
+            report.setStatus(0);
+            report.setDepartment(Enter.getcUser().getDepartment());
+            reportDAO.addReport(report);
+        } else {
+            report = Enter.getConsideredReport();
+            report.setNameShort(name);
+            report.setNameLong(fullName);
+            report.setYearsStart(start);
+            report.setYearsEnd(end);
+            report.setUsers(users);
+            report.setDate(new Date());
+            report.setDepartment(Enter.getcUser().getDepartment());
+            reportDAO.updateReport(report);
+            Enter.setConsideredReport(null);
+        }
     }
 
     public static boolean check(String name, String fullName, Integer start, Integer end, List<User> users){
