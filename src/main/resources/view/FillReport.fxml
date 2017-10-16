@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eleron.lris.niokr.controller.NewReportControl">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eleron.lris.niokr.controller.FillReportController">
    <children>
       <SplitPane dividerPositions="0.21804511278195488" layoutX="306.0" layoutY="152.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -32,17 +32,17 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#addReport" prefHeight="87.0" prefWidth="171.0" text="Сохранить" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="87.0" prefWidth="171.0" text="Сохранить" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="75.0" prefWidth="241.0" text="Отправить" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="sendBtn" mnemonicParsing="false" prefHeight="75.0" prefWidth="241.0" text="Отправить" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="returnBtn1" mnemonicParsing="false" onAction="#returnToMainMenu" prefHeight="66.0" prefWidth="170.0" text="Вернуться" GridPane.rowIndex="7" />
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" prefHeight="66.0" prefWidth="170.0" text="Вернуться" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
                </children>
@@ -100,12 +100,12 @@
                               <Insets left="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="5">
+                        <TextArea fx:id="progressTArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="5.0" />
                            </GridPane.margin>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="7">
+                        <TextArea fx:id="troubleTArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets left="5.0" />
                            </GridPane.margin>
@@ -115,7 +115,7 @@
                               <Insets left="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Процент выполнения ОКР за текущий год: 0% (текущий месяц не учитывается)" GridPane.columnSpan="6" GridPane.rowIndex="9">
+                        <Label fx:id="perYearLabel" text="Процент выполнения ОКР за текущий год: 0% (текущий месяц не учитывается)" GridPane.columnSpan="6" GridPane.rowIndex="9">
                            <GridPane.margin>
                               <Insets left="5.0" />
                            </GridPane.margin>
@@ -131,10 +131,10 @@
                               <Insets left="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Какой-то" GridPane.columnIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="periodLabel" text="Какой-то" GridPane.columnIndex="1" />
+                        <Label fx:id="departmentLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="ownerLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="nameReportLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children></AnchorPane>
