@@ -76,7 +76,7 @@
                               <Insets left="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="fillReportBtn" mnemonicParsing="false" text="Заполнить" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="fillReportBtn" onAction="#fillReport" mnemonicParsing="false" text="Заполнить" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="2">
                           <columns>
                             <TableColumn fx:id="columnName" prefWidth="451.0" text="Название" />

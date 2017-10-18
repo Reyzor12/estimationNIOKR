@@ -86,6 +86,15 @@ public class MainMenu {
         }
     }
 
+    @FXML
+    public void fillReport(){
+        if(tableView.getSelectionModel().getSelectedIndex() == -1){
+            AlertUtil.getAlert("Не выбран ни один НИОКР для заполнения!");
+        } else{
+            Enter.setConsideredReport(tableView.getSelectionModel().getSelectedItem());
+            LoadScenes.load("view/FillReport.fxml");
+        }
+    }
 
     public void refreshTable(){
         reportsObs = FXCollections.observableArrayList(ReportBussines.loadReportMain());
