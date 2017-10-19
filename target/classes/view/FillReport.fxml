@@ -42,7 +42,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="cancelBtn" mnemonicParsing="false" prefHeight="66.0" prefWidth="170.0" text="Вернуться" GridPane.rowIndex="7" />
+                        <Button fx:id="cancelBtn" onAction="#returnMehod" mnemonicParsing="false" prefHeight="66.0" prefWidth="170.0" text="Вернуться" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
                </children>
@@ -125,7 +125,7 @@
                               <Insets left="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <Spinner GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                        <Spinner fx:id="monthSpiner" GridPane.columnIndex="2" GridPane.rowIndex="10" />
                         <Label text="\%" GridPane.columnIndex="3" GridPane.rowIndex="10">
                            <GridPane.margin>
                               <Insets left="5.0" />
