@@ -25,6 +25,7 @@ public class ReportBussines {
             report.setDate(new Date());
             report.setStatus(0);
             report.setDepartment(Enter.getcUser().getDepartment());
+            report.setPersentOfYear(0);
             reportDAO.addReport(report);
         } else {
             report = Enter.getConsideredReport();

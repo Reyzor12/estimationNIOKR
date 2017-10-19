@@ -30,7 +30,7 @@ public class User extends Model {
     private String fname;
 
     @NotNull(message="Не задано подрзделение пользователя")
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="department",referencedColumnName="id")
     private Department department;
 
