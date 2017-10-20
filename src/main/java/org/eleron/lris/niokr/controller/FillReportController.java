@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
+import org.eleron.lris.niokr.dao.ReportDAO;
+import org.eleron.lris.niokr.dao.ReportDAOImplements;
 import org.eleron.lris.niokr.model.Report;
+import org.eleron.lris.niokr.util.AlertUtil;
 import org.eleron.lris.niokr.util.DateUtil;
 
 import java.util.Calendar;
@@ -60,17 +63,35 @@ public class FillReportController {
                 DateUtil.getCurrentMonthR(),
                 Calendar.getInstance().get(Calendar.YEAR)));
         departmentLabel.setText(Enter.getcUser().getDepartment().getName());
-        ownerLabel.setText(report.getUsers().get(0).toString());
+        ownerLabel.setText(report.getOwner().toString());
+
         String reportString = "СЧ ОКР \"%s\", шифр \"%s\"";
         nameReportLabel.setText(String.format(reportString, report.getNameLong(),report.getNameShort()));
         String yearString = "Процент выполнения ОКР за текущий год: %d";
         perYearLabel.setText(String.format(yearString,report.getPersentOfYear())+ "% (текущий месяц не учитывается)");
-        SpinnerValueFactory<Integer> spinnervf = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
+        int monthPer = report.getPersentOfMonth()==null?0:report.getPersentOfMonth();
+        SpinnerValueFactory<Integer> spinnervf = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,monthPer);
         monthSpiner.setValueFactory(spinnervf);
+        if (report.getText() != null) progressTArea.setText(report.getText());
+        if (report.getTrouble() != null) troubleTArea.setText(report.getTrouble());
     }
 
     @FXML
     public void returnMehod(){
+        LoadScenes.load("view/MainMenu.fxml");
+    }
+
+    @FXML
+    public void fillReport(){
+        if(progressTArea.getText().isEmpty()) {
+           AlertUtil.getAlert("Не все поля были заполнены!");
+           return;
+        }
+        report.setText(progressTArea.getText());
+        report.setTrouble(troubleTArea.getText());
+        report.setPersentOfMonth(monthSpiner.getValue());
+        ReportDAO reportDAO = new ReportDAOImplements();
+        reportDAO.updateReport(report);
         LoadScenes.load("view/MainMenu.fxml");
     }
 }

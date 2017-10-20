@@ -18,13 +18,6 @@ public class MainApp extends Application {
     public static void main(String[] args) {
 
         sessionFactory = HibernateUtil.getSessionFactory();
-        /*
-        DepartmentDAOImplements dao_department = new DepartmentDAOImplements();
-        dao_department.setSessionFactory(sessionFactory);
-        Department department = new Department();
-        department.setName("Name1");
-        dao_department.addDepartment(department);
-        */
         launch(args);
 
     }
