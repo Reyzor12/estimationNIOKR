@@ -7,6 +7,8 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.MainApp;
+import org.eleron.lris.niokr.dao.UserDAO;
+import org.eleron.lris.niokr.dao.UserDAOImplements;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 import org.hibernate.Session;
@@ -132,5 +134,27 @@ public class Enter {
         }
 
         return null;
+    }
+
+    public static List<User> getAnotherUsers(){
+
+        /*UserDAO userDao = new UserDAOImplements();
+        List<User> users =  userDao.getAnotherUserWithInDepartment(getcUser().getId());*/
+
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> users = null;
+        try {
+            users = (List<User>) session.createQuery("From User where department=:dept and id != :id")
+                    .setParameter("dept", Enter.getcUser().getDepartment())
+                    .setParameter("id", Enter.getcUser().getId())
+                    .list();
+            transaction.commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return users;
     }
 }

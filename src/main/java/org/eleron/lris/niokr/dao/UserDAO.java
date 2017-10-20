@@ -11,4 +11,5 @@ public interface UserDAO {
     public void deleteUserById(Long id);
     public List<User> listUser();
     public User getUserById(Long id);
+    public List<User> getAnotherUserWithInDepartment(Long id);
 }

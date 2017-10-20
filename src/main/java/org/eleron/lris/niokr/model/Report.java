@@ -38,7 +38,12 @@ public class Report extends Model{
     @JoinTable(name="report_user", joinColumns={@JoinColumn(name="report_id")},inverseJoinColumns={@JoinColumn(name="user_id")})
     private List<User> users;
 
-    @NotNull(message = "Данное поле не может бвть пустым")
+    @NotNull(message="Данное поле не может быть пустым")
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="owner",referencedColumnName="id")
+    private User owner;
+
+    @NotNull(message = "Данное поле не может быть пустым")
     @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name="department", referencedColumnName = "id")
     private Department department;
@@ -153,6 +158,14 @@ public class Report extends Model{
 
     public void setYearsEnd(Integer yearsEnd) {
         this.yearsEnd = yearsEnd;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Report(){

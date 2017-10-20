@@ -22,6 +22,7 @@ public class ReportBussines {
             report.setYearsStart(start);
             report.setYearsEnd(end);
             report.setUsers(users);
+            report.setOwner(Enter.getcUser());
             report.setDate(new Date());
             report.setStatus(0);
             report.setDepartment(Enter.getcUser().getDepartment());
@@ -41,7 +42,7 @@ public class ReportBussines {
         }
     }
 
-    public static boolean check(String name, String fullName, Integer start, Integer end, List<User> users){
+    public static boolean check(String name, String fullName, Integer start, Integer end){
         if(name==""||
            name==null||
            fullName==""||
@@ -49,8 +50,7 @@ public class ReportBussines {
            start==null||
            start==0||
            end==null||
-           end==0||
-           users.isEmpty()) return false;
+           end==0) return false;
         return true;
     }
 

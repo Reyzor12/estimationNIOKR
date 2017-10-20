@@ -120,4 +120,32 @@ public class UserDAOImplements implements UserDAO{
         }
         return user;
     }
+
+    @Override
+    public List<User> getAnotherUserWithInDepartment(Long id) {
+
+        log.info("get user list of one department except one user id=" + id);
+        if(id == null) return null;
+        List<User> users = null;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try{
+
+            User user = (User)session.get(this.getClass(),id);
+            users = (List<User>)session.createQuery("From User where department=:dept and id != :id")
+                    .setParameter("dept",user.getDepartment())
+                    .setParameter("id",id)
+                    .list();
+            transaction.commit();
+            log.info("get user list successful");
+        }catch(Exception e){
+            log.error("fail get user list of one department",e);
+            transaction.rollback();
+        }finally{
+            session.close();
+        }
+
+        return users;
+    }
+
 }

@@ -120,7 +120,7 @@ public class NewReportControl {
                 users.add(person.getUser());
             }
         }
-        if(!ReportBussines.check(name,fullName,start,end,users)){
+        if(!ReportBussines.check(name,fullName,start,end)){
             AlertUtil.getAlert("Не все поля были заполнены или не было выбрано ни одного исполнителя!");
         }else{
             ReportBussines.saveNewReportDB(name,fullName,start,end,users);
@@ -130,7 +130,7 @@ public class NewReportControl {
 
     private void loadDataReport(Report report){
 
-        ObservableList<Person> persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getUsers()));
+        ObservableList<Person> persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getAnotherUsers()));
 
         if(Enter.getDateOfReports() == null){
             Enter.setDateOfReports(new DateOfReportsDAOImplements().getDates());
