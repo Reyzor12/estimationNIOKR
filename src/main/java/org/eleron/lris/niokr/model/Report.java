@@ -1,7 +1,5 @@
 package org.eleron.lris.niokr.model;
 
-import org.apache.log4j.Logger;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;

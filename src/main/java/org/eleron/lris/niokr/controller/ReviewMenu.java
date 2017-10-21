@@ -70,7 +70,6 @@ public class ReviewMenu {
             try{
                 messageTo.setDate(TimeManager.currentDate());
                 MessageDAOImplements messageDAO = new MessageDAOImplements();
-                messageDAO.setSessionFactory(Enter.getSessionFactory());
                 messageDAO.addMessage(messageTo);
                 message.clear();
                 alert.setTitle("Информация");

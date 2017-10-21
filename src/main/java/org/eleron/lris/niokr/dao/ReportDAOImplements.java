@@ -15,64 +15,62 @@ public class ReportDAOImplements implements ReportDAO{
 
     @Override
     public void addReport(Report report) {
-
+        log.info("add report");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         try{
-            log.info("add report");
+            transaction = session.beginTransaction();
             session.merge(report);
             transaction.commit();
             log.info("add report successful");
-
         }catch(Exception e){
-            transaction.rollback();
             log.error("fail to add report",e);
-
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }finally {
             session.close();
         }
-
     }
 
     @Override
     public void deleteReport(Long id) {
-
+        log.info("delete report");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         try{
-            log.info("delete report");
+            transaction = session.beginTransaction();
             Report report = (Report) session.load(Report.class,id);
-            if(report!=null){
+            if(report != null){
                 session.delete(report);
             }
             transaction.commit();
             log.info("delete report complete");
-
         }catch(Exception e){
-            transaction.rollback();
             log.error("fail delete user",e);
-
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }finally {
             session.close();
         }
-
-
     }
 
     @Override
     public void updateReport(Report report) {
-
+        log.info("update report");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         try{
-            log.info("update report");
+            transaction = session.beginTransaction();
             session.update(report);
             transaction.commit();
             log.info("update report successful");
         }catch(Exception e){
-            transaction.rollback();
             log.error("update report fail");
-
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }finally {
             session.close();
         }
@@ -80,18 +78,20 @@ public class ReportDAOImplements implements ReportDAO{
 
     @Override
     public List<Report> listReport() {
-
+        log.info("get list of reports");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         List<Report> reports=null;
         try{
-            log.info("get list of reports");
+            transaction = session.beginTransaction();
             reports = session.createQuery("from Report").list();
             transaction.commit();
             log.info("have list of reports");
         }catch(Exception e){
-            transaction.rollback();
             log.error("fail to get list",e);
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }finally {
             session.close();
         }
@@ -100,19 +100,20 @@ public class ReportDAOImplements implements ReportDAO{
 
     @Override
     public Report getReport(Long id) {
-
+        log.info("get report");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-
+        Transaction transaction = null;
         Report report = null;
         try{
-            log.info("get report");
+            transaction = session.beginTransaction();
             report = (Report) session.load(Report.class,id);
             transaction.commit();
             log.info("get report successful");
         }catch(Exception e){
-            transaction.rollback();
             log.error("fail get report",e);
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }finally {
             session.close();
         }
@@ -121,20 +122,22 @@ public class ReportDAOImplements implements ReportDAO{
 
     @Override
     public List<Report> listDepartmentReport(Department department) {
-
+        log.info("get list of department reports ");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         List<Report> reports=null;
         try{
-            log.info("get list of department reports ");
+            transaction = session.beginTransaction();
             reports = session.createQuery("from Report where department = :dept")
                     .setParameter("dept",department)
                     .list();
             transaction.commit();
             log.info("have list of department reports");
         }catch(Exception e){
-            transaction.rollback();
             log.error("fail to get department list",e);
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }finally {
             session.close();
         }

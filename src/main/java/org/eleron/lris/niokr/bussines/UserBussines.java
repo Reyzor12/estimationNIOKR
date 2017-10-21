@@ -61,7 +61,6 @@ public class UserBussines {
             if(ValidationUtil.valiationUniqueUser(user)){
 
                 UserDAOImplements userDAO = new UserDAOImplements();
-                userDAO.setSessionFactory(sessionFactory);
                 userDAO.addUser(user);
                 Session session = sessionFactory.openSession();
                 Transaction transaction = session.beginTransaction();

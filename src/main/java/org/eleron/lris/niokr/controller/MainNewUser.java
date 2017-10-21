@@ -62,7 +62,6 @@ public class MainNewUser {
             log.info("start initialize " + this.getClass().getName());
             sessionFactory = HibernateUtil.getSessionFactory();
             DepartmentDAOImplements departmentDAO = new DepartmentDAOImplements();
-            departmentDAO.setSessionFactory(sessionFactory);
             departments = departmentDAO.listDepartment();
             ObservableList<Department>  departmentChoose = FXCollections.observableArrayList();
             for (Department department: departments) {
