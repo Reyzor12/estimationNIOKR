@@ -14,6 +14,10 @@ import java.util.List;
         @UniqueConstraint(columnNames={"name","sname","fname","department"})})
 public class User extends Model {
 
+    /*
+    * User Fields
+    * */
+
     @NotNull(message="Не задано имя пользователя")
     @Size(max=100, message="Имя прользователя не может привышать 100 знаков")
     @Column(name="name" , nullable=false)
@@ -29,7 +33,7 @@ public class User extends Model {
     @Column(name="fname",nullable=false)
     private String fname;
 
-    @NotNull(message="Не задано подрзделение пользователя")
+    @NotNull(message="Не задано подразделение пользователя")
     @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="department",referencedColumnName="id")
     private Department department;
@@ -41,9 +45,13 @@ public class User extends Model {
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL,orphanRemoval=true)
     private List<Message> messages;
 
-    @NotNull(message="Не задана ролья пользователя")
+    @NotNull(message="Не задана роль пользователя")
     @Column(name="role", nullable = false)
     private Integer role;
+
+    /*
+    * Getters Setters methods
+    * */
 
     public Integer getRole() {
         return role;
@@ -101,6 +109,10 @@ public class User extends Model {
         this.department = department;
     }
 
+    /*
+    * Constructors
+    * */
+
     public User(){
         super();
         this.computer=System.getenv("USERNAME");
@@ -112,18 +124,58 @@ public class User extends Model {
         this.computer=System.getenv("USERNAME");
     }
 
-    public String getFullName(){return this.getName() + " " + this.getSname() + " " + this.getFname();}
+    public User(String name, String sname, String fname, Department department, Integer role){
+        super();
+        this.computer = System.getenv("USERNAME");
+        this.name = name;
+        this.sname = sname;
+        this.fname = fname;
+        this.department = department;
+        this.role = role;
+    }
 
+    /*
+    * Override methods
+    * */
+
+    @Override
     public String toString(){
         return this.getName() + " " + this.getSname() + " " + this.getFname();
     }
 
-    public boolean equals(Object object){
-        if(object instanceof User){
-            if(((User)object).getId()==getId()){
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public int hashCode(){
+        Long id = getId();
+        int result = (id != null)? id.hashCode():0;
+        result = 31*result + (name != null? name.hashCode():0);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(!(o instanceof User)) return false;
+
+        User user = (User) o;
+        Long id = getId();
+        Long oId = user.getId();
+        return id != null ? !id.equals(user.getId()): oId != null;
+    }
+
+    /*
+    * Other methods
+    * */
+
+    public String info(){
+        final StringBuffer sb = new StringBuffer("User(");
+        sb.append("id=").append(getId());
+        sb.append(",name=").append(name);
+        sb.append(",sname=").append(sname);
+        sb.append(",fname=").append(fname);
+        sb.append(",computer=").append(computer);
+        sb.append(",department=").append(department);
+        sb.append(",role=").append(role);
+        sb.append(")");
+        return sb.toString();
     }
 }

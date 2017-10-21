@@ -6,10 +6,18 @@ import java.io.Serializable;
 @MappedSuperclass
 public abstract class Model implements Serializable{
 
+    /*
+    * Model Fields
+    * */
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="id")
     private long id;
+
+    /*
+    * Getters Setters Methods
+    * */
 
     public long getId() {
         return id;
@@ -19,12 +27,13 @@ public abstract class Model implements Serializable{
         this.id = id;
     }
 
-    public Model(){
+    /*
+    * Constructors
+    * */
 
-    }
+    public Model(){}
 
     public Model(Long id){
         this.id = id;
     }
-
 }
