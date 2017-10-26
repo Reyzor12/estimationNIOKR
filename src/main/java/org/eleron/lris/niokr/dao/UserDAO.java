@@ -12,4 +12,5 @@ public interface UserDAO {
     public List<User> listUser();
     public User getUserById(Long id);
     public List<User> getAnotherUserWithInDepartment(Long id);
+    public List<User> getUsersByParameters(User user);
 }
