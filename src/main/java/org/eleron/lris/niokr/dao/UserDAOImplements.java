@@ -1,6 +1,7 @@
 package org.eleron.lris.niokr.dao;
 
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.HibernateUtil;
 import org.hibernate.Session;
@@ -170,6 +171,74 @@ public class UserDAOImplements implements UserDAO {
             if(session.isOpen()){
                 session.close();
             }
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUserByDepartment(Department department) {
+
+        log.info("get Users by department =" + department + " start");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        List<User> users = null;
+        try{
+            transaction = session.beginTransaction();
+            users = (List<User>) session.createQuery("from User where department = :dept").setParameter("dept",department).list();
+            transaction.commit();
+            log.info("get Users by department = " + department + " complite");
+        }catch(Exception e){
+            log.error("get Users by department = " + department + " fail",e);
+            transaction.rollback();
+        }finally{
+            session.close();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUserByComputer(String computer) {
+
+        log.info("get Users by computer name " + computer);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        List<User> users = null;
+        try{
+            transaction = session.beginTransaction();
+            users = (List<User>)session.createQuery("from User where computer = :comp").setParameter("comp",computer).list();
+            log.info("get Users by computer name succesfully");
+            transaction.commit();
+        } catch(Exception e){
+            log.error("get Users by computer name fail",e);
+            transaction.rollback();
+        }finally{
+            if(session.isOpen()){
+                session.close();
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getAnotherUsers(Department department, Long id) {
+
+        log.info("get another user");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        List<User> users = null;
+        try{
+            transaction = session.beginTransaction();
+            users = (List<User>) session.createQuery("from User where department=:dept and id != :ide")
+                    .setParameter("dept", department)
+                    .setParameter("ide", id)
+                    .list();
+            transaction.commit();
+            log.info("get another users succesully");
+        }catch(Exception e){
+            log.error("get another users fail");
+            transaction.rollback();
+        }finally{
+            if(session.isOpen()) session.close();
         }
         return users;
     }
