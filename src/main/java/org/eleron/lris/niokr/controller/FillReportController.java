@@ -14,7 +14,15 @@ import java.util.Calendar;
 
 public class FillReportController {
 
+    /*
+    * Fields
+    * */
+
     private Report report;
+
+    /*
+    * FXML Fields
+    * */
 
     @FXML
     private Button saveBtn;
@@ -49,31 +57,13 @@ public class FillReportController {
     @FXML
     private Spinner<Integer> monthSpiner;
 
+    /*
+    * FXML Methods
+    * */
+
     @FXML
     private void initialize(){
         init();
-    }
-
-    private void init(){
-        report = Enter.getConsideredReport();
-        if(report == null) return;
-        String periodString = "%s %d     (Крайняя дата отправки: 20 %s %d г.)";
-        periodLabel.setText(String.format(periodString, DateUtil.getCurrentMonth(),
-                Calendar.getInstance().get(Calendar.YEAR),
-                DateUtil.getCurrentMonthR(),
-                Calendar.getInstance().get(Calendar.YEAR)));
-        departmentLabel.setText(Enter.getcUser().getDepartment().getName());
-        ownerLabel.setText(report.getOwner().toString());
-
-        String reportString = "СЧ ОКР \"%s\", шифр \"%s\"";
-        nameReportLabel.setText(String.format(reportString, report.getNameLong(),report.getNameShort()));
-        String yearString = "Процент выполнения ОКР за текущий год: %d";
-        perYearLabel.setText(String.format(yearString,report.getPersentOfYear())+ "% (текущий месяц не учитывается)");
-        int monthPer = report.getPersentOfMonth()==null?0:report.getPersentOfMonth();
-        SpinnerValueFactory<Integer> spinnervf = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,monthPer);
-        monthSpiner.setValueFactory(spinnervf);
-        if (report.getText() != null) progressTArea.setText(report.getText());
-        if (report.getTrouble() != null) troubleTArea.setText(report.getTrouble());
     }
 
     @FXML
@@ -84,8 +74,8 @@ public class FillReportController {
     @FXML
     public void fillReport(){
         if(progressTArea.getText().isEmpty()) {
-           AlertUtil.getAlert("Не все поля были заполнены!");
-           return;
+            AlertUtil.getAlert("Не все поля были заполнены!");
+            return;
         }
         report.setText(progressTArea.getText());
         report.setTrouble(troubleTArea.getText());
@@ -93,5 +83,36 @@ public class FillReportController {
         ReportDAO reportDAO = new ReportDAOImplements();
         reportDAO.updateReport(report);
         LoadScenes.load("view/MainMenu.fxml");
+    }
+
+    /*
+    * Bussiness methods
+    * */
+
+    private void init(){
+        report = Enter.getConsideredReport();
+        if(report == null) return;
+        String periodString = "%s %d     (Крайняя дата отправки: 20 %s %d г.)";
+
+        periodLabel.setText(String.format(periodString, DateUtil.getCurrentMonth(),
+                Calendar.getInstance().get(Calendar.YEAR),
+                DateUtil.getCurrentMonthR(),
+                Calendar.getInstance().get(Calendar.YEAR)));
+        departmentLabel.setText(Enter.getcUser().getDepartment().getName());
+        ownerLabel.setText(report.getOwner().toString());
+
+        String reportString = "СЧ ОКР \"%s\", шифр \"%s\"";
+
+        nameReportLabel.setText(String.format(reportString, report.getNameLong(),report.getNameShort()));
+
+        String yearString = "Процент выполнения ОКР за текущий год: %d";
+
+        perYearLabel.setText(String.format(yearString,report.getPersentOfYear())+ "% (текущий месяц не учитывается)");
+
+        int monthPer = report.getPersentOfMonth()==null?0:report.getPersentOfMonth();
+        SpinnerValueFactory<Integer> spinnervf = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,monthPer);
+        monthSpiner.setValueFactory(spinnervf);
+        if (report.getText() != null) progressTArea.setText(report.getText());
+        if (report.getTrouble() != null) troubleTArea.setText(report.getTrouble());
     }
 }
