@@ -151,11 +151,10 @@ public class User extends Model {
     public boolean equals(Object o){
         if(this == o) return true;
         if(!(o instanceof User)) return false;
-
         User user = (User) o;
         Long id = getId();
         Long oId = user.getId();
-        return id != null ? !id.equals(user.getId()): oId != null;
+        return id != null ? id.equals(user.getId()): oId == null;
     }
 
     /*

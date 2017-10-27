@@ -80,8 +80,6 @@ public class Person {
             Person per = (Person) object;
             if(per.getUser().equals(getUser())){
                 return true;
-            } else {
-                return false;
             }
         } else {
             if(object instanceof User){

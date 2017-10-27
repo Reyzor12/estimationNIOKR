@@ -181,7 +181,7 @@ public class Report extends Model{
         super(id);
     }
 
-    public Report(String nameShort, String nameLong, User owner, Department department, Integer status, Integer yearsStart, Integer yearsEnd){
+    public Report(String nameShort, String nameLong, User owner, Department department, Integer status, Integer yearsStart, Integer yearsEnd, List<User> users){
         super();
         this.date = new Date();
         this.nameShort = nameShort;
@@ -191,6 +191,8 @@ public class Report extends Model{
         this.status = status;
         this.yearsStart = yearsStart;
         this.yearsEnd = yearsEnd;
+        this.users = users;
+        this.persentOfYear = 0;
     }
 
     /*

@@ -12,21 +12,23 @@ import java.util.List;
 
 public class ReportBussines {
 
+    /*
+    * Methods
+    * */
+
     public static void saveNewReportDB(String name, String fullName, Integer start, Integer end, List<User> users){
         Report report = null;
         ReportDAO reportDAO = new ReportDAOImplements();
         if(Enter.getConsideredReport()==null){
-            report = new Report();
-            report.setNameShort(name);
-            report.setNameLong(fullName);
-            report.setYearsStart(start);
-            report.setYearsEnd(end);
-            report.setUsers(users);
-            report.setOwner(Enter.getcUser());
-            report.setDate(new Date());
-            report.setStatus(0);
-            report.setDepartment(Enter.getcUser().getDepartment());
-            report.setPersentOfYear(0);
+            report = new Report(
+                    name,
+                    fullName,
+                    Enter.getcUser(),
+                    Enter.getcUser().getDepartment(),
+                    0,
+                    start,
+                    end,
+                    users);
             reportDAO.addReport(report);
         } else {
             report = Enter.getConsideredReport();
