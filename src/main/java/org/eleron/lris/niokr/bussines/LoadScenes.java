@@ -11,9 +11,21 @@ import java.io.IOException;
 
 public class LoadScenes {
 
+    /*
+    * Logger
+    * */
+
     private static final Logger log = Logger.getLogger(LoadScenes.class);
 
+    /*
+    * Static fields
+    * */
+
     private static Stage primaryStage;
+
+    /*
+    * Getters Setters methods
+    * */
 
     public static Stage getPrimaryStage() {
         return primaryStage;
@@ -23,6 +35,10 @@ public class LoadScenes {
         LoadScenes.primaryStage = primaryStage;
     }
 
+    /*
+    * Bussiness methods
+    * */
+    
     public static void load(String path){
 
         Parent root = null;
