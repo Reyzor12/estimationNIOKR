@@ -10,14 +10,19 @@ import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.bussines.TimeManager;
 import org.eleron.lris.niokr.dao.MessageDAOImplements;
 import org.eleron.lris.niokr.model.Message;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import java.util.Date;
+import org.eleron.lris.niokr.util.AlertUtil;
 
 public class ReviewMenu {
 
+    /*
+    * Logger
+    * */
+
     private static final Logger log = Logger.getLogger(ReviewMenu.class);
+
+    /*
+    * FXML Fields
+    * */
 
     @FXML
     private Button sendBtn;
@@ -31,19 +36,22 @@ public class ReviewMenu {
     @FXML
     private TextArea message;
 
+    /*
+    * FXML Methods
+    * */
+
+    @FXML
     private void initialize(){
 
     }
 
     @FXML
     public void backToMainMenu(){
-
         LoadScenes.load("view/MainMenu.fxml");
     }
 
     @FXML
     public void newUser(){
-
         LoadScenes.load("view/NewUser.fxml");
     }
 
@@ -52,32 +60,14 @@ public class ReviewMenu {
 
         log.info("Try add message");
         String msg = message.getText();
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
         if(msg==""){
-
             log.info("null message");
-
-            alert.setTitle("Предупреждение");
-            alert.setContentText("Сообщение не может быть пустым");
-            alert.show();
+            AlertUtil.getInformation("Сообщение не может быть пустым");
         } else{
-            Message messageTo = new Message();
-            messageTo.setMessage(msg);
-            messageTo.setUser(Enter.getcUser());
-
-            try{
-                messageTo.setDate(TimeManager.currentDate());
-                MessageDAOImplements messageDAO = new MessageDAOImplements();
-                messageDAO.addMessage(messageTo);
-                message.clear();
-                alert.setTitle("Информация");
-                alert.setContentText("Сообщение отправлено");
-                alert.show();
-            }catch(Exception e){
-                log.error("Can't add message",e);
-            }
+            MessageDAOImplements messageDAO = new MessageDAOImplements();
+            messageDAO.addMessage(new Message(Enter.getcUser(),msg,TimeManager.currentDate()));
+            message.clear();
+            AlertUtil.getInformation("Сообщение отправлено");
         }
     }
 }
