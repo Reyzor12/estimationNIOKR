@@ -60,7 +60,7 @@ public class UserDAOImplements implements UserDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            User user = (User) session.load(this.getClass(), id);
+            User user = (User) session.get(this.getClass(), id);
             if (user != null) {
                 session.delete(user);
             }

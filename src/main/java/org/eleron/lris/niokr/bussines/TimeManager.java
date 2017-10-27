@@ -3,7 +3,6 @@ package org.eleron.lris.niokr.bussines;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.Date;
