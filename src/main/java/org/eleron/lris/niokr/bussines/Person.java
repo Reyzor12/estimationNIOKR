@@ -6,12 +6,20 @@ import org.eleron.lris.niokr.model.User;
 
 public class Person {
 
+    /*
+    * Fields
+    * */
+
     private User user;
     private BooleanProperty check = new SimpleBooleanProperty(false);
 
     private String name;
     private String sname;
     private String fname;
+
+    /*
+    * Constructors
+    * */
 
     Person(){}
     Person(User user,Boolean check){
@@ -24,10 +32,13 @@ public class Person {
 
     }
 
+    /*
+    * Getters Setters methods
+    * */
+
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -35,11 +46,9 @@ public class Person {
     public boolean isCheck() {
         return check.get();
     }
-
     public BooleanProperty checkProperty() {
         return check;
     }
-
     public void setCheck(boolean check) {
         this.check.set(check);
     }
@@ -47,7 +56,6 @@ public class Person {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -55,7 +63,6 @@ public class Person {
     public String getSname() {
         return sname;
     }
-
     public void setSname(String sname) {
         this.sname = sname;
     }
@@ -63,7 +70,6 @@ public class Person {
     public String getFname() {
         return fname;
     }
-
     public void setFname(String fname) {
         this.fname = fname;
     }

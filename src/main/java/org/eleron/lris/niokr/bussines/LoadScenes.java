@@ -38,7 +38,7 @@ public class LoadScenes {
     /*
     * Bussiness methods
     * */
-    
+
     public static void load(String path){
 
         Parent root = null;
