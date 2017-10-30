@@ -54,10 +54,7 @@ public class NewUser {
     * */
 
     @FXML
-    public void goBack(){
-
-        LoadScenes.load("view/MainMenu.fxml");
-    }
+    public void goBack(){ LoadScenes.load("view/MainMenu.fxml"); }
 
     @FXML
     public void addUser(){
@@ -66,21 +63,16 @@ public class NewUser {
         String sname = snameField.getText();
         String fname = fnameField.getText();
         Department department = Enter.getcUser().getDepartment();
-
         try{
             log.info("add new user name-" +name+ " sname-" + sname
                     + " fname-" + fname);
-
-//            int result = (1 > 2) ? 1 : 0;
             UserBussines.formedUser(name,sname,fname,department);
             if(UserBussines.getUser()!= null){
                 Enter.reloadUsersList();
                 LoadScenes.load("view/MainMenu.fxml");
             }
-
         }catch(Exception e){
             log.error("add user fail", e);
-            e.printStackTrace();
         }
     }
 }
