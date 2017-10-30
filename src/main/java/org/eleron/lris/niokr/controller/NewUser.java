@@ -12,7 +12,15 @@ import org.eleron.lris.niokr.util.ValidationUtil;
 
 public class NewUser {
 
+    /*
+    * Logger
+    * */
+
     private static final Logger log = Logger.getLogger(NewUser.class);
+
+    /*
+    * FXML Fields
+    * */
 
     @FXML
     private TextField nameField;
@@ -29,6 +37,10 @@ public class NewUser {
     @FXML
     private Button addBtn;
 
+    /*
+    * Init method
+    * */
+
     @FXML
     private void initialize(){
 
@@ -36,6 +48,10 @@ public class NewUser {
         ValidationUtil.validUserField(snameField);
         ValidationUtil.validUserField(fnameField);
     }
+
+    /*
+    * FXML Methods
+    * */
 
     @FXML
     public void goBack(){
