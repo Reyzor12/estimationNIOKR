@@ -112,4 +112,11 @@ public class Enter {
         List<User> users =  userDao.getAnotherUsers(user.getDepartment(),user.getId());
         return users;
     }
+
+    public static List<User> getAnotherUsers(User user){
+
+        UserDAO userDao = new UserDAOImplements();
+        List<User> users = userDao.getAnotherUsers(user.getDepartment(),user.getId());
+        return users;
+    }
 }

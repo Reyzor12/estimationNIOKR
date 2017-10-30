@@ -11,15 +11,22 @@ import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.AlertUtil;
-import org.eleron.lris.niokr.util.HibernateUtil;
-import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewReportControl {
 
+    /*
+    * Fields
+    * */
+
     private List<Integer> years;
+    private int flag;
+
+    /*
+    * FXML Fields
+    * */
 
     @FXML
     private Label shortReportNameLabel;
@@ -66,12 +73,18 @@ public class NewReportControl {
     @FXML
     private Button returnBtn;
 
-    private int flag;
+    /*
+    * Init method
+    * */
 
     @FXML
     private void initialize(){
         loadDataReport(Enter.getConsideredReport());
     }
+
+    /*
+    * FXML Methods
+    * */
 
     @FXML
     public void returnToMainMenu(){
@@ -88,11 +101,6 @@ public class NewReportControl {
             startReport.setItems(FXCollections.observableArrayList(years.subList(0,years.indexOf(index))));
             flag = 0;
         }
-        /*if(index == -1){
-            endReport.setItems(FXCollections.observableArrayList(years));
-        }else{
-            endReport.setItems(FXCollections.observableArrayList(index,years.size()));
-        }*/
     }
 
     @FXML
@@ -104,7 +112,6 @@ public class NewReportControl {
             endReport.setItems(FXCollections.observableArrayList(years.subList(years.indexOf(index)+1,years.size())));
             flag = 0;
         }
-
     }
 
     @FXML
@@ -115,7 +122,7 @@ public class NewReportControl {
         Integer end = endReport.getSelectionModel().getSelectedItem();
         Person[] persons = new Person[usersTable.getItems().size()];
         List<User> users = new ArrayList<User>();
-        for (Person person: usersTable.getItems().toArray( persons)) {
+        for (Person person: usersTable.getItems().toArray(persons)) {
             if(person.isCheck()){
                 users.add(person.getUser());
             }
@@ -130,8 +137,6 @@ public class NewReportControl {
 
     private void loadDataReport(Report report){
 
-        ObservableList<Person> persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getAnotherUsers()));
-
         if(Enter.getDateOfReports() == null){
             Enter.setDateOfReports(new DateOfReportsDAOImplements().getDates());
         }
@@ -139,10 +144,10 @@ public class NewReportControl {
         ObservableList<Integer> date = FXCollections.observableArrayList(years);
         startReport.setItems(date);
         endReport.setItems(date);
+        ObservableList<Person> persons = null;
+        if(report != null){
+            persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getAnotherUsers(report.getOwner())));
 
-        if(report == null) {
-
-        }else{
             shortReportNameText.setText(report.getNameShort());
             longReportNameText.setText(report.getNameLong());
 
@@ -156,8 +161,9 @@ public class NewReportControl {
                     person.setCheck(true);
                 }
             }
+        } else {
+            persons = FXCollections.observableArrayList(UserBussines.toPerson(Enter.getAnotherUsers()));
         }
-
         nameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("name"));
         snameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("sname"));
         fnameCol.setCellValueFactory(new PropertyValueFactory<Person,String>("fname"));
