@@ -16,6 +16,7 @@ import org.eleron.lris.niokr.bussines.ReportBussines;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.util.AlertUtil;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public class MainMenu {
@@ -97,13 +98,13 @@ public class MainMenu {
     }
 
     public void refreshTable(){
-        reportsObs = FXCollections.observableArrayList(ReportBussines.loadReportMain());
+        reportsObs = FXCollections.observableArrayList();
+        for(Report report : ReportBussines.loadReportMain()) {
+            if(report.getStatus()==0) reportsObs.add(report);
+        }
         columnName.setCellValueFactory(new PropertyValueFactory<Report,String>("nameShort"));
         tableView.setItems(reportsObs);
     }
-
-
-
 
     @FXML
     public void search(KeyEvent event){

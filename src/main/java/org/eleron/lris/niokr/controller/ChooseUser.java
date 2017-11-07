@@ -49,7 +49,11 @@ public class ChooseUser {
         if(users.getSelectionModel().getSelectedItem()!=null){
             log.info("Заходим под пользователя " + users.getSelectionModel().getSelectedItem());
             Enter.setcUser(users.getSelectionModel().getSelectedItem());
-            LoadScenes.load("view/MainMenu.fxml");
+            switch(Enter.getcUser().getRole()) {
+                case 1:LoadScenes.load("view/MainMenu.fxml");break;
+                case 2:LoadScenes.load("view/NextLevelWindow.fxml");break;
+                default: AlertUtil.getAlert("Для данного пользователя задана неправомерная роль");
+            }
         } else {
             AlertUtil.getInformation("Пользователь не выбран");
         }

@@ -3,7 +3,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=otcenka</property>
+        <property name="connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=otcenka </property>
         <property name="connection.username">sa</property>
         <property name="connection.password">eleronadmin</property>
         <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
