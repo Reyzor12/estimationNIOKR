@@ -71,6 +71,13 @@ public class FillReportController {
         LoadScenes.load("view/MainMenu.fxml");
     }
 
+    @FXML void sendReport(){
+        report.setStatus(1);
+        ReportDAO reportDAO = new ReportDAOImplements();
+        reportDAO.updateReport(report);
+        LoadScenes.load("view/MainMenu.fxml");
+    }
+
     @FXML
     public void fillReport(){
         if(progressTArea.getText().isEmpty()) {
