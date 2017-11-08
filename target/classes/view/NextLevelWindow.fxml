@@ -78,13 +78,13 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowSpan="4">
+                                    <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowSpan="4">
                                       <columns>
-                                        <TableColumn prefWidth="184.84423828125" text="Шифр НИР" />
-                                        <TableColumn prefWidth="71.0028076171875" text="\%месяц" />
-                                          <TableColumn prefWidth="68.76153564453125" text="\%год" />
-                                          <TableColumn prefWidth="194.88818359375" text="Исполнитель" />
-                                          <TableColumn prefWidth="98.0" text="Одобрено" />
+                                        <TableColumn fx:id="nameColumn" prefWidth="184.84423828125" text="Шифр НИР" />
+                                        <TableColumn fx:id="monthColumn" prefWidth="71.0028076171875" text="\%месяц" />
+                                          <TableColumn fx:id="yearColumn" prefWidth="68.76153564453125" text="\%год" />
+                                          <TableColumn fx:id="ownerColumn" prefWidth="194.88818359375" text="Исполнитель" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="98.0" text="Одобрено" />
                                       </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

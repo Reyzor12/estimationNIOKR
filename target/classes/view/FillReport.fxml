@@ -37,7 +37,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="sendBtn" mnemonicParsing="false" prefHeight="75.0" prefWidth="241.0" text="Отправить" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="sendBtn" onAction="#sendReport" mnemonicParsing="false" prefHeight="75.0" prefWidth="241.0" text="Отправить" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
