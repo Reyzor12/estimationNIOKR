@@ -43,7 +43,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="75.0" prefWidth="241.0" text="Отчёт в MS Word" GridPane.rowIndex="3" />
+                        <Button onAction="#showReport" mnemonicParsing="false" prefHeight="75.0" prefWidth="241.0" text="Отчёт в MS Word" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>

@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.bussines.MicrosoftReports;
 import org.eleron.lris.niokr.bussines.ReportBussines;
 import org.eleron.lris.niokr.dao.ReportDAO;
 import org.eleron.lris.niokr.dao.ReportDAOImplements;
@@ -159,6 +160,15 @@ public class NextLevelWindow {
                 AlertUtil.getAlert("Данный НИОКР нельзя отозвать");
             }
         }else{
+            AlertUtil.getAlert("Не выбран ни один НИОКР");
+        }
+    }
+
+    @FXML
+    private void showReport(){
+        if(tableView.getSelectionModel().getSelectedItem() != null){
+            MicrosoftReports.fromReportToWord(tableView.getSelectionModel().getSelectedItem());
+        } else{
             AlertUtil.getAlert("Не выбран ни один НИОКР");
         }
     }
