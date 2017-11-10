@@ -100,17 +100,17 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                                    <TextArea fx:id="progressText" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="5">
                                        <GridPane.margin>
                                           <Insets left="5.0" />
                                        </GridPane.margin>
                                     </TextArea>
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="7">
+                                    <TextArea fx:id="problemText" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="7">
                                        <GridPane.margin>
                                           <Insets left="5.0" />
                                        </GridPane.margin>
                                     </TextArea>
-                                    <Button mnemonicParsing="false" text="Сохранить" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                                    <Button onAction="#saveChanges" mnemonicParsing="false" text="Сохранить" GridPane.columnIndex="3" GridPane.rowIndex="8">
                                        <GridPane.margin>
                                           <Insets left="10.0" />
                                        </GridPane.margin>

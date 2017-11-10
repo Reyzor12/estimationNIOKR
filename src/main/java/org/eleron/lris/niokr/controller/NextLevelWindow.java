@@ -4,12 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.bussines.ReportBussines;
+import org.eleron.lris.niokr.dao.ReportDAO;
+import org.eleron.lris.niokr.dao.ReportDAOImplements;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
+import org.eleron.lris.niokr.util.AlertUtil;
 
 public class NextLevelWindow {
 
@@ -47,6 +52,12 @@ public class NextLevelWindow {
     @FXML
     private TableColumn<Report,Integer> statusColumn;
 
+    @FXML
+    private TextArea progressText;
+
+    @FXML
+    private TextArea problemText;
+
     /*
     * Init method
     * */
@@ -73,5 +84,31 @@ public class NextLevelWindow {
         ownerColumn.setCellValueFactory(new PropertyValueFactory<Report,User>("owner"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<Report,Integer>("status"));
         tableView.setItems(reportObservableList);
+        tableView.setRowFactory(tv->{
+            TableRow<Report> row = new TableRow<>();
+            row.setOnMouseClicked(event->{
+               if(event.getClickCount() == 1 && (!row.isEmpty())){
+                   Report report = row.getItem();
+                   progressText.setText(report.getText());
+                   problemText.setText(report.getTrouble());
+               }
+            });
+            return row;
+        });
+    }
+
+    /*
+    * save changes
+    * */
+
+    @FXML
+    public void saveChanges(){
+        Report report = tableView.getSelectionModel().getSelectedItem();
+        report.setText(progressText.getText());
+        report.setTrouble(problemText.getText());
+        ReportDAO reportDAO = new ReportDAOImplements();
+        reportDAO.updateReport(report);
+        log.info("update report = " + report);
+        AlertUtil.getInformation("Изменения успешно сохранены");
     }
 }
