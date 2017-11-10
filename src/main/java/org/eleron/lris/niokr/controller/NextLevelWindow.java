@@ -138,4 +138,28 @@ public class NextLevelWindow {
             AlertUtil.getAlert("Не выбран ни один НИОКР для отправки");
         }
     }
+
+    @FXML
+    private void rejectReport(){
+        Report report = tableView.getSelectionModel().getSelectedItem();
+        if(report != null){
+            if(report.getStatus() == 1 || report.getStatus() == 2){
+                report.setStatus(report.getStatus()-1);
+                ReportDAO reportDAO = new ReportDAOImplements();
+                reportDAO.updateReport(report);
+                AlertUtil.getInformation("НИОКР успешно отозван");
+                if(report.getStatus()==0){
+                    tableView.getItems().remove(report);
+                    progressText.clear();
+                    problemText.clear();
+                }
+                tableView.refresh();
+                log.info("update report = " + report);
+            } else {
+                AlertUtil.getAlert("Данный НИОКР нельзя отозвать");
+            }
+        }else{
+            AlertUtil.getAlert("Не выбран ни один НИОКР");
+        }
+    }
 }
