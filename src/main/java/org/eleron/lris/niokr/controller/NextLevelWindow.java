@@ -104,11 +104,38 @@ public class NextLevelWindow {
     @FXML
     public void saveChanges(){
         Report report = tableView.getSelectionModel().getSelectedItem();
-        report.setText(progressText.getText());
-        report.setTrouble(problemText.getText());
-        ReportDAO reportDAO = new ReportDAOImplements();
-        reportDAO.updateReport(report);
-        log.info("update report = " + report);
-        AlertUtil.getInformation("Изменения успешно сохранены");
+        if (report != null) {
+            report.setText(progressText.getText());
+            report.setTrouble(problemText.getText());
+            ReportDAO reportDAO = new ReportDAOImplements();
+            reportDAO.updateReport(report);
+            log.info("update report = " + report);
+            AlertUtil.getInformation("Изменения успешно сохранены");
+        } else {
+            AlertUtil.getAlert("Не выбран ни один НИОКР!");
+        }
+    }
+
+    /*
+    * Approve button
+    * */
+
+    @FXML
+    private void approveReport(){
+        Report report = tableView.getSelectionModel().getSelectedItem();
+        if(report != null ) {
+            if (report.getStatus() == 1) {
+                report.setStatus(2);
+                ReportDAO reportDAO = new ReportDAOImplements();
+                reportDAO.updateReport(report);
+                AlertUtil.getInformation("Отчет по НИОКР одобрен и отправлен");
+                tableView.refresh();
+                log.info("update report = " + report);
+            } else {
+                AlertUtil.getAlert("Отчет по НИОКР уже отправлен");
+            }
+        }else{
+            AlertUtil.getAlert("Не выбран ни один НИОКР для отправки");
+        }
     }
 }
