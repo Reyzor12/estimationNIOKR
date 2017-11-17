@@ -32,10 +32,10 @@ public class MicrosoftReports {
                 FileOutputStream out = new FileOutputStream(new File(str.substring(6)));
                 document.write(out);
                 out.close();
-                /*if (Desktop.isDesktopSupported()) {
-                    File file = new File(String.valueOf(MicrosoftReports.class.getClassLoader().getResource(REPORT_PATH)));
+                if (Desktop.isDesktopSupported()) {
+                    File file = new File(str.substring(6));
                     Desktop.getDesktop().open(file);
-                }*/
+                }
                 log.info("document docx successfully construated");
             }catch(Exception e){
                 log.error("fail create docx document",e);
