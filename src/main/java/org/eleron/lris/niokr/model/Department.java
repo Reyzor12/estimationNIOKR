@@ -24,6 +24,9 @@ public class Department extends Model{
     @OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
     private List<Report> reports;
 
+    @Column(name="head")
+    private String head;
+
     /*
     * Getters Setters Methods
     * */
@@ -52,6 +55,14 @@ public class Department extends Model{
         this.users = users;
     }
 
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
+    }
+
     /*
     * Constructors
     * */
@@ -64,9 +75,10 @@ public class Department extends Model{
         super(id);
     }
 
-    public Department(String name){
+    public Department(String name, String head){
         super();
         this.name = name;
+        this.head = head;
     }
 
     /*

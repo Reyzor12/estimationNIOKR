@@ -167,7 +167,7 @@ public class NextLevelWindow {
     @FXML
     private void showReport(){
         if(tableView.getSelectionModel().getSelectedItem() != null){
-            MicrosoftReports.fromReportToWord(tableView.getSelectionModel().getSelectedItem());
+//            MicrosoftReports.fromReportToWord(tableView.getSelectionModel().getSelectedItem());
         } else{
             AlertUtil.getAlert("Не выбран ни один НИОКР");
         }
