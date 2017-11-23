@@ -30,20 +30,18 @@ public class MicrosoftReports {
     private static Map<String,String> getData(){
         if(replacer == null){
             replacer = new HashMap<>();
-            replacer.put("$NTOCHEF","Жихарев С.Н.");
-            replacer.put("$INMONTH", DateUtil.getCurrentMonthR());
-            replacer.put("$YEAR", Integer.toString(Calendar.getInstance().get(Calendar.YEAR)));
-            replacer.put("$DEPARTMENT",Enter.getcUser().getDepartment().getName());
-            replacer.put("$DEPARTMENTCHEF",Enter.getcUser().getDepartment().getHead());
+            replacer.put("NTOCHEF","Жихарев С.Н.");
+            replacer.put("INMONTH", DateUtil.getCurrentMonthR().substring(0,DateUtil.getCurrentMonthR().length()-1) + "е");
+            replacer.put("YEAR", Integer.toString(Calendar.getInstance().get(Calendar.YEAR)));
+            replacer.put("DEPARTMENT",Enter.getcUser().getDepartment().getName());
+            replacer.put("DEPARTMENTCHEF",Enter.getcUser().getDepartment().getHead());
             return replacer;
         }else{
             return replacer;
         }
     }
 
-    private static final String REPORT_PATH = "templates/reports";
-//    private static final String REPORT_PATH = "view/Main.fxml";
-    public static void fromReportToWord(Report report,String pathTemplete, String savePath, String fileName){
+    public static void fromReportToWord(Report report,String pathTemplete, String savePath){
         XWPFDocument document = null;
         replacer = getData();
         if(report != null){
@@ -54,7 +52,9 @@ public class MicrosoftReports {
                         String text = run.getText(0);
                         if(text != null){
                             for(String key : replacer.keySet()){
-                                text = text.replace(key,replacer.get(key));
+                                if(text.contains(key)){
+                                    text = text.replace(key,replacer.get(key));
+                                }
                             }
                         }
                         run.setText(text,0);
@@ -68,7 +68,9 @@ public class MicrosoftReports {
                                     String text = run.getText(0);
                                     if(text != null){
                                         for(String key : replacer.keySet()){
-                                            text = text.replace(key,replacer.get(key));
+                                            if(text.contains(key)){
+                                                text = text.replace(key,replacer.get(key));
+                                            }
                                         }
                                     }
                                     run.setText(text,0);
@@ -77,7 +79,7 @@ public class MicrosoftReports {
                         }
                     }
                 }
-                document.write(new FileOutputStream(savePath + fileName + ".docx"));
+                document.write(new FileOutputStream(savePath));
 /*
                 XWPFParagraph paragraph = document.createParagraph();
                 paragraph.setAlignment(ParagraphAlignment.LEFT);

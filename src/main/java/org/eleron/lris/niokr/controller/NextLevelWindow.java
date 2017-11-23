@@ -17,6 +17,10 @@ import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.AlertUtil;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 public class NextLevelWindow {
 
     /*
@@ -30,6 +34,8 @@ public class NextLevelWindow {
     * */
 
     private ObservableList<Report> reportObservableList;
+
+    private static final String REPORT_PATH = "templates/reports/";
 
     /*
     * FXML Fields
@@ -167,7 +173,17 @@ public class NextLevelWindow {
     @FXML
     private void showReport(){
         if(tableView.getSelectionModel().getSelectedItem() != null){
-//            MicrosoftReports.fromReportToWord(tableView.getSelectionModel().getSelectedItem());
+            String path = NextLevelWindow.class.getClassLoader().getResource(REPORT_PATH + "DepartmentTemplate.docx").getPath();
+            String savePath = path.replace("DepartmentTemplate.docx","departmentTemp.docx");
+            MicrosoftReports.fromReportToWord(tableView.getSelectionModel().getSelectedItem(),path,savePath);
+            if (Desktop.isDesktopSupported()) {
+                File file = new File(savePath);
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } else{
             AlertUtil.getAlert("Не выбран ни один НИОКР");
         }
