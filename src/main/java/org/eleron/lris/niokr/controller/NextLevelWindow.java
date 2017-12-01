@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.MicrosoftReports;
 import org.eleron.lris.niokr.bussines.ReportBussines;
 import org.eleron.lris.niokr.dao.ReportDAO;
@@ -16,8 +17,13 @@ import org.eleron.lris.niokr.dao.ReportDAOImplements;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.AlertUtil;
+import org.eleron.lris.niokr.util.DateUtil;
 
-import java.awt.*;
+import java.awt.Desktop;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,6 +38,8 @@ public class NextLevelWindow {
     /*
     * Fields
     * */
+
+    private List<String> commonData;
 
     private ObservableList<Report> reportObservableList;
 
@@ -79,6 +87,12 @@ public class NextLevelWindow {
     * */
 
     public void loadReports(){
+        commonData = Arrays.asList(
+                "Жихареву С.Н.",
+                DateUtil.getCurrentMonthR().substring(0,DateUtil.getCurrentMonthR().length()-1) + "е",
+                Integer.toString(Calendar.getInstance().get(Calendar.YEAR)),
+                Enter.getcUser().getDepartment().getName(),
+                Enter.getcUser().getDepartment().getHead());
         reportObservableList = FXCollections.observableArrayList();
         for(Report report : ReportBussines.loadReportMain()){
             if(report!=null?(report.getStatus()==1||report.getStatus()==2):false){
@@ -173,16 +187,20 @@ public class NextLevelWindow {
     @FXML
     private void showReport(){
         if(tableView.getSelectionModel().getSelectedItem() != null){
-            String path = NextLevelWindow.class.getClassLoader().getResource(REPORT_PATH + "DepartmentTemplate.docx").getPath();
-            String savePath = path.replace("DepartmentTemplate.docx","departmentTemp.docx");
-            MicrosoftReports.fromReportToWord(tableView.getSelectionModel().getSelectedItem(),path,savePath);
+            String path = NextLevelWindow.class.getClassLoader().getResource(REPORT_PATH + "StyleDoc.docx").getPath();
+            String savePath = path.replace("StyleDoc.docx","departmentTemp.docx");
+//            MicrosoftReports.fromReportToWord(tableView.getSelectionModel().getSelectedItem(),path,savePath);
+            MicrosoftReports.formReportTo(commonData, reportObservableList,savePath,path);
             if (Desktop.isDesktopSupported()) {
                 File file = new File(savePath);
                 try {
                     Desktop.getDesktop().open(file);
                 } catch (IOException e) {
+                    log.error("Не удалось выполнить функцию showReport() класса NextLevelWindow");
                     e.printStackTrace();
                 }
+            }else{
+                AlertUtil.getInformation("Нельзя открыть word документ на вышей ОС");
             }
         } else{
             AlertUtil.getAlert("Не выбран ни один НИОКР");
