@@ -17,9 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.List;
 
 public class MicrosoftReports {
@@ -162,7 +160,14 @@ public class MicrosoftReports {
 
                 XWPFParagraph paragraph5Report = document.createParagraph();
                 XWPFRun run5Report = paragraph5Report.createRun();
-                run5Report.setText("    - Процент выполнения за текущий месяц - " + report.getPersentOfMonth() + "%");
+                run5Report.setText("    - Процент выполнения за текущий месяц (01." +
+                        (Calendar.MONTH+10)%13 +
+                        " - " +
+                        (new GregorianCalendar(Calendar.YEAR,Calendar.MONTH,1)).getActualMaximum(Calendar.DAY_OF_MONTH) +
+                        "." +
+                        (Calendar.MONTH+10)%13 +
+                        ") - " +
+                        report.getPersentOfMonth() + "%");
 
                 for(String str : ("        " + report.getText()).split("\n")){
                     XWPFParagraph paragraph = document.createParagraph();
