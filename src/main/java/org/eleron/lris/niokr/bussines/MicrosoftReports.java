@@ -113,6 +113,7 @@ public class MicrosoftReports {
     }
 
     public static void formReportTo(List<String> parameters, List<Report> reportList, String pathSave, String fileTemplate){
+
         try {
             XWPFDocument document = new XWPFDocument(new FileInputStream(fileTemplate));
 
@@ -163,17 +164,21 @@ public class MicrosoftReports {
                 XWPFRun run5Report = paragraph5Report.createRun();
                 run5Report.setText("    - Процент выполнения за текущий месяц - " + report.getPersentOfMonth() + "%");
 
+                for(String str : ("        " + report.getText()).split("\n")){
+                    XWPFParagraph paragraph = document.createParagraph();
+                    XWPFRun run = paragraph.createRun();
+                    run.setText(str);
+                }
+
                 XWPFParagraph paragraph6Report = document.createParagraph();
                 XWPFRun run6Report = paragraph6Report.createRun();
-                run6Report.setText("         " + report.getText());
+                run6Report.setText("в) Проблемные вопросы:");
 
-                XWPFParagraph paragraph7Report = document.createParagraph();
-                XWPFRun run7Report = paragraph7Report.createRun();
-                run7Report.setText("в) Проблемные вопросы:");
-
-                XWPFParagraph paragraph8Report = document.createParagraph();
-                XWPFRun run8Report = paragraph8Report.createRun();
-                run8Report.setText("         " + report.getTrouble());
+                for(String str : ("        " + report.getTrouble()).split("\n")){
+                    XWPFParagraph paragraph = document.createParagraph();
+                    XWPFRun run = paragraph.createRun();
+                    run.setText(str);
+                }
             }
 
             XWPFTable table = document.createTable(1,2);
