@@ -148,11 +148,11 @@ public class MicrosoftReports {
                         + "г.) (09.01 - 29.12) - "
                         + report.getPersentOfYear()
                         + "%", "Процент выполнения за текущий месяц (01." +
-                (Calendar.MONTH+10)%13 +
+                        (Calendar.getInstance().get(Calendar.MONTH)+1) +
                         " - " +
                         (new GregorianCalendar(Calendar.YEAR,Calendar.MONTH,1)).getActualMaximum(Calendar.DAY_OF_MONTH) +
                         "." +
-                        (Calendar.MONTH+10)%13   +
+                        (Calendar.getInstance().get(Calendar.MONTH)+1)   +
                         ") - " +
                         report.getPersentOfMonth() + "%"}));
 
