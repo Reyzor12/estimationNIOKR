@@ -19,13 +19,12 @@ import org.eleron.lris.niokr.model.User;
 import org.eleron.lris.niokr.util.AlertUtil;
 import org.eleron.lris.niokr.util.DateUtil;
 
-import java.awt.Desktop;
-import java.util.ArrayList;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.io.File;
-import java.io.IOException;
 
 public class NextLevelWindow {
 

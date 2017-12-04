@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eleron.lris.niokr.controller.ReviewMenu">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eleron.lris.niokr.controller.ReviewMenu">
    <children>
       <SplitPane dividerPositions="0.21804511278195488" layoutX="306.0" layoutY="152.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -34,16 +34,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="addNewUserBtn" mnemonicParsing="false" onAction="#newUser" prefHeight="87.0" prefWidth="171.0" text="Сформировать отчет по &#10;НИОКР для выбранного&#10;подразделения Word" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </GridPane.margin>
-                        </Button>
-                        <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="75.0" prefWidth="241.0" text="Сформировать отчет по &#10;НИОКР для всех&#10;подразделений Word" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </GridPane.margin>
-                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="170.0" text="Подразделения" GridPane.rowIndex="2" />
+                        <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="170.0" text="Настройки" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
@@ -63,8 +55,9 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="105.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="215.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -84,7 +77,7 @@
                         </Label>
                         <ComboBox prefWidth="150.0" GridPane.columnIndex="3" GridPane.columnSpan="2" />
                         <Label text="Месяц" GridPane.columnIndex="5" />
-                        <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="8" GridPane.rowIndex="2" GridPane.rowSpan="6">
+                        <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="8" GridPane.rowIndex="3" GridPane.rowSpan="6">
                           <columns>
                             <TableColumn prefWidth="425.0" text="Подразделение" />
                             <TableColumn prefWidth="194.0" text="Отправлено НИОКР" />
@@ -93,6 +86,19 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <Button fx:id="addNewUserBtn" mnemonicParsing="false" onAction="#newUser" prefHeight="55.0" prefWidth="154.0" text="Отчет в MS Word&#10;для подразделения" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="10.0" top="5.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="54.0" prefWidth="155.0" text="Общий отчет в&#10;MS Word" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Label text="Label" GridPane.columnIndex="6" />
+                        <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="6" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children></AnchorPane>

@@ -4,21 +4,14 @@ import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
 import org.eleron.lris.niokr.model.Report;
-import org.eleron.lris.niokr.util.AlertUtil;
 import org.eleron.lris.niokr.util.DateUtil;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblPr;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblWidth;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
-import java.awt.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
-import java.util.List;
 
 public class MicrosoftReports {
 
@@ -150,7 +143,38 @@ public class MicrosoftReports {
                 XWPFRun run3Report = paragraph3Report.createRun();
                 run3Report.setText("б) Ход выполнения НИР в соответствии с план-графиком:");
 
-                XWPFParagraph paragraph4Report = document.createParagraph();
+                List<String> dataE = new ArrayList<>(Arrays.asList( new String[]{"Процент выполнения от общего объёма работ (на "
+                        + parameters.get(2)
+                        + "г.) (09.01 - 29.12) - "
+                        + report.getPersentOfYear()
+                        + "%", "Процент выполнения за текущий месяц (01." +
+                (Calendar.MONTH+10)%13 +
+                        " - " +
+                        (new GregorianCalendar(Calendar.YEAR,Calendar.MONTH,1)).getActualMaximum(Calendar.DAY_OF_MONTH) +
+                        "." +
+                        (Calendar.MONTH+10)%13   +
+                        ") - " +
+                        report.getPersentOfMonth() + "%"}));
+
+                CTAbstractNum cTAbstractNum = CTAbstractNum.Factory.newInstance();
+                cTAbstractNum.setAbstractNumId(BigInteger.valueOf(0));
+                CTLvl cTLVl = cTAbstractNum.addNewLvl();
+                cTLVl.addNewNumFmt().setVal(STNumberFormat.BULLET);
+                cTLVl.addNewLvlText().setVal("-");
+
+                XWPFAbstractNum abstractNum = new XWPFAbstractNum(cTAbstractNum);
+                XWPFNumbering numbering = document.createNumbering();
+                BigInteger abstractNumId = numbering.addAbstractNum(abstractNum);
+                BigInteger numId = numbering.addNum(abstractNumId);
+
+                for (String string : dataE) {
+                    paragraph3Report = document.createParagraph();
+                    paragraph3Report.setNumID(numId);
+                    run3Report = paragraph3Report.createRun();
+                    run3Report.setText(string);
+                }
+
+                /*XWPFParagraph paragraph4Report = document.createParagraph();
                 XWPFRun run4Report = paragraph4Report.createRun();
                 run4Report.setText("    - Процент выполнения от общего объёма работ (на "
                         + parameters.get(2)
@@ -165,12 +189,13 @@ public class MicrosoftReports {
                         " - " +
                         (new GregorianCalendar(Calendar.YEAR,Calendar.MONTH,1)).getActualMaximum(Calendar.DAY_OF_MONTH) +
                         "." +
-                        (Calendar.MONTH+10)%13 +
+                        (Calendar.MONTH+10)%13   +
                         ") - " +
                         report.getPersentOfMonth() + "%");
-
-                for(String str : ("        " + report.getText()).split("\n")){
+*/
+                for(String str : (report.getText()).split("\n")){
                     XWPFParagraph paragraph = document.createParagraph();
+                    paragraph.setStyle("a3");
                     XWPFRun run = paragraph.createRun();
                     run.setText(str);
                 }
@@ -179,8 +204,9 @@ public class MicrosoftReports {
                 XWPFRun run6Report = paragraph6Report.createRun();
                 run6Report.setText("в) Проблемные вопросы:");
 
-                for(String str : ("        " + report.getTrouble()).split("\n")){
+                for(String str : (report.getTrouble()).split("\n")){
                     XWPFParagraph paragraph = document.createParagraph();
+                    paragraph.setStyle("a3");
                     XWPFRun run = paragraph.createRun();
                     run.setText(str);
                 }
