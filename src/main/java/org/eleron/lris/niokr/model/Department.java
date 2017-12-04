@@ -21,7 +21,7 @@ public class Department extends Model{
     @OneToMany(mappedBy = "department",cascade=CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 
-    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Report> reports;
 
     @Column(name="head")

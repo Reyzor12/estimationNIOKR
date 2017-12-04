@@ -10,13 +10,13 @@ import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.dao.DateOfReportsDAO;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
+import org.eleron.lris.niokr.dao.DepartmentDAO;
+import org.eleron.lris.niokr.dao.DepartmentDAOImplements;
 import org.eleron.lris.niokr.model.Department;
+import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.util.DateUtil;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FinalLevelWindow {
 
@@ -74,5 +74,26 @@ public class FinalLevelWindow {
         ObservableList<String> monthsData = FXCollections.observableArrayList(monthsOfReport);
         monthsChoiceBox.setItems(monthsData);
         monthsChoiceBox.setValue(DateUtil.getCurrentMonth());
+
+        DepartmentDAO departmentDAO = new DepartmentDAOImplements();
+        Integer departmentsGood = 0;
+        for(Department department : departmentDAO.listDepartment()){
+            List<Report> reports = department.getReports();
+            if(reports.isEmpty()){
+                departmentsGood += 1;
+            } else {
+                int tmp = 0;
+                for(Report report : reports){
+                    tmp = report.getStatus()==2?tmp:tmp+1;
+                }
+                if(tmp == reports.size()){
+                    departmentsGood += 1;
+                }
+            }
+        }
+
+        allDepartments.setText("Все (" + departmentDAO.listDepartment().size() + ")");
+        receiveDepartments.setText("Прислали (" + departmentsGood +")");
+        notReceiveDepartments.setText("НЕ прислали (" + (departmentDAO.listDepartment().size() - departmentsGood) +")");
     }
 }
