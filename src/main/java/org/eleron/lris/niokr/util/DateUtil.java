@@ -48,4 +48,9 @@ public class DateUtil {
         }
         return months.get(Calendar.getInstance().get(Calendar.MONTH)+12);
     }
+
+    public static Map<Integer,String> getMonths(){
+        if(months == null) initMonths();
+        return months;
+    }
 }
