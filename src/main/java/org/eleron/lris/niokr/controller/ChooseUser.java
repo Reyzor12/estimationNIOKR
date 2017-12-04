@@ -52,6 +52,7 @@ public class ChooseUser {
             switch(Enter.getcUser().getRole()) {
                 case 1:LoadScenes.load("view/MainMenu.fxml");break;
                 case 2:LoadScenes.load("view/NextLevelWindow.fxml");break;
+                case 3:LoadScenes.load("view/FinalLevelWindow.fxml");break;
                 default: AlertUtil.getAlert("Для данного пользователя задана неправомерная роль");
             }
         } else {

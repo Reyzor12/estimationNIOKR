@@ -47,7 +47,12 @@ public class ReviewMenu {
 
     @FXML
     public void backToMainMenu(){
-        LoadScenes.load("view/MainMenu.fxml");
+        switch(Enter.getcUser().getRole()){
+            case 1: LoadScenes.load("view/MainMenu.fxml");break;
+            case 3: LoadScenes.load("view/FinalLevelWindow.fxml");break;
+            default: AlertUtil.getAlert("Сбились пользовательские настройки! Обратитесь к разработчику программы!");break;
+        }
+
     }
 
     @FXML
