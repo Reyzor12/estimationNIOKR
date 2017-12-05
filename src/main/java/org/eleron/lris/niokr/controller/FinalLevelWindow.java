@@ -7,8 +7,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import org.apache.log4j.Logger;
+import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
-import org.eleron.lris.niokr.dao.DateOfReportsDAO;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
 import org.eleron.lris.niokr.dao.DepartmentDAO;
 import org.eleron.lris.niokr.dao.DepartmentDAOImplements;
@@ -16,15 +16,34 @@ import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.util.DateUtil;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FinalLevelWindow {
 
+    /*
+    logger
+     */
+
     private final static Logger log = Logger.getLogger(FinalLevelWindow.class);
+
+    /*
+    Fields
+     */
 
     private List<Integer> datesOfReport;
 
     private List<String> monthsOfReport;
+
+    private List<Department> listOfDepartment;
+
+    private Map<Department,Integer> howReportsCome;
+
+    /**
+     * FXML Fields
+     */
 
     @FXML
     private Label allDepartments;
@@ -44,6 +63,10 @@ public class FinalLevelWindow {
     @FXML
     private ChoiceBox monthsChoiceBox;
 
+    /**
+     * FXML Methods
+     */
+
     @FXML
     public void backToDepartment(){}
 
@@ -59,41 +82,48 @@ public class FinalLevelWindow {
     @FXML
     public void reportForAllDepartments(){}
 
+    /**
+     * Init method
+     */
+
     public void initialize(){
-        DateOfReportsDAO dateOfReportsDAO = new DateOfReportsDAOImplements();
-        datesOfReport = dateOfReportsDAO.getDates();
+        //Enter class fill
+        Enter.setDateOfReports(new DateOfReportsDAOImplements().getDates());
+
+        datesOfReport = Enter.getDateOfReports();
         ObservableList<Integer> dateData= FXCollections.observableArrayList(datesOfReport);
+
         yearsChoiceBox.setItems(dateData);
         yearsChoiceBox.setValue(Calendar.getInstance().get(Calendar.YEAR));
 
-        monthsOfReport = new ArrayList<>();
-        Map<Integer,String> mon = DateUtil.getMonths();
-        for(Integer key : mon.keySet()){
-            if(key < 13) monthsOfReport.add(mon.get(key));
-        }
+        monthsOfReport = DateUtil.listOfMonths();
         ObservableList<String> monthsData = FXCollections.observableArrayList(monthsOfReport);
+
         monthsChoiceBox.setItems(monthsData);
         monthsChoiceBox.setValue(DateUtil.getCurrentMonth());
 
-        DepartmentDAO departmentDAO = new DepartmentDAOImplements();
+        listOfDepartment = new DepartmentDAOImplements().listDepartment();
+        howReportsCome = new HashMap<>();
         Integer departmentsGood = 0;
-        for(Department department : departmentDAO.listDepartment()){
+        for(Department department : listOfDepartment){
             List<Report> reports = department.getReports();
             if(reports.isEmpty()){
                 departmentsGood += 1;
+                howReportsCome.put(department,0);
             } else {
-                int tmp = 0;
+                int sendDepartment = 0;
                 for(Report report : reports){
-                    tmp = report.getStatus()==2?tmp:tmp+1;
+                    sendDepartment = report.getStatus()==2?sendDepartment+1:sendDepartment;
                 }
-                if(tmp == reports.size()){
+                howReportsCome.put(department,sendDepartment);
+                if(sendDepartment == reports.size()){
                     departmentsGood += 1;
                 }
             }
         }
 
-        allDepartments.setText("Все (" + departmentDAO.listDepartment().size() + ")");
+        allDepartments.setText("Все (" + listOfDepartment.size() + ")");
         receiveDepartments.setText("Прислали (" + departmentsGood +")");
-        notReceiveDepartments.setText("НЕ прислали (" + (departmentDAO.listDepartment().size() - departmentsGood) +")");
+        notReceiveDepartments.setText("НЕ прислали (" + (listOfDepartment.size() - departmentsGood) +")");
     }
 }

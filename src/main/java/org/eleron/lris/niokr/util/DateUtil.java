@@ -1,8 +1,6 @@
 package org.eleron.lris.niokr.util;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DateUtil {
 
@@ -52,5 +50,14 @@ public class DateUtil {
     public static Map<Integer,String> getMonths(){
         if(months == null) initMonths();
         return months;
+    }
+
+    public static List<String> listOfMonths(){
+        if(months == null) initMonths();
+        List<String> result = new ArrayList<>();
+        for(int i = 1; i < 13; i++){
+            result.add(months.get(i));
+        }
+        return result;
     }
 }
