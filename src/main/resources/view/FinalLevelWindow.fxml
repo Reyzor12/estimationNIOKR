@@ -77,8 +77,9 @@
                         <Label text="Месяц" GridPane.columnIndex="5" />
                         <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="8" GridPane.rowIndex="3" GridPane.rowSpan="6">
                           <columns>
-                            <TableColumn prefWidth="425.0" text="Подразделение" />
-                            <TableColumn prefWidth="194.0" text="Отправлено НИОКР" />
+                            <TableColumn fx:id="departmentName" prefWidth="274.66668701171875" text="Подразделение" />
+                            <TableColumn fx:id="numberReceiveReportsOfDepartment" prefWidth="189.99993896484375" text="Отправлено НИОКР" />
+                              <TableColumn fx:id="numberReportsOfDepartment" prefWidth="160.0" text="Всего НИОКР" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

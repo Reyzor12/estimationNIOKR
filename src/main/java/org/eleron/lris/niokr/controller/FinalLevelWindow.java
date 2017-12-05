@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.bussines.Enter;
@@ -62,6 +63,15 @@ public class FinalLevelWindow {
 
     @FXML
     private ChoiceBox monthsChoiceBox;
+
+    @FXML
+    private TableColumn<Department,Integer> numberReportsOfDepartment;
+
+    @FXML
+    private TableColumn<Department,String> departmentName;
+
+    @FXML
+    private TableColumn<Department,Integer> numberReceiveReportsOfDepartment;
 
     /**
      * FXML Methods
