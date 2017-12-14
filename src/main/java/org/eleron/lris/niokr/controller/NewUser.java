@@ -54,7 +54,14 @@ public class NewUser {
     * */
 
     @FXML
-    public void goBack(){ LoadScenes.load("view/MainMenu.fxml"); }
+    public void goBack(){
+        switch(Enter.getcUser().getRole()){
+            case 1: LoadScenes.load("view/MainMenu.fxml");break;
+            case 2: LoadScenes.load("view/NextLevelWindow.fxml");break;
+            case 3: LoadScenes.load("view/FinalLevelWindow.fxml");break;
+            default: LoadScenes.load("view/ErrorPage.fxml");
+        }
+    }
 
     @FXML
     public void addUser(){
@@ -69,7 +76,13 @@ public class NewUser {
             UserBussines.formedUser(name,sname,fname,department);
             if(UserBussines.getUser()!= null){
                 Enter.reloadUsersList();
-                LoadScenes.load("view/MainMenu.fxml");
+                switch(Enter.getcUser().getRole()){
+                    case 1: LoadScenes.load("view/MainMenu.fxml");break;
+                    case 2: LoadScenes.load("view/NextLevelWindow.fxml");break;
+                    case 3: LoadScenes.load("view/FinalLevelWindow.fxml");break;
+                    default: LoadScenes.load("view/ErrorPage.fxml");
+                }
+
             }
         }catch(Exception e){
             log.error("add user fail", e);
