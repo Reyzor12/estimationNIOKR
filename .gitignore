@@ -3,3 +3,5 @@
 # ignore logs
 logs/
 target/
+esti.iml
+estimation-niocr.iml
