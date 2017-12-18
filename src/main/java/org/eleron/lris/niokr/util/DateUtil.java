@@ -33,6 +33,14 @@ public class DateUtil {
         months.put(23,"декабря");
     }
 
+    public static Integer getMonthByName(String string){
+        if(months == null) initMonths();
+        for(Integer i : months.keySet()){
+            if(months.get(i).equals(string))return i;
+        }
+        return null;
+    }
+
     public static String getCurrentMonth(){
         if (months==null){
             initMonths();

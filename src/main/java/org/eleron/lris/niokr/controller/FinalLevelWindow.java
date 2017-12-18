@@ -7,22 +7,20 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.apache.log4j.Logger;
 import org.eleron.lris.niokr.bussines.Enter;
 import org.eleron.lris.niokr.bussines.LoadScenes;
 import org.eleron.lris.niokr.dao.DateOfReportsDAOImplements;
-import org.eleron.lris.niokr.dao.DepartmentDAO;
 import org.eleron.lris.niokr.dao.DepartmentDAOImplements;
 import org.eleron.lris.niokr.model.Department;
 import org.eleron.lris.niokr.model.Report;
 import org.eleron.lris.niokr.util.DateUtil;
+import org.eleron.lris.niokr.transletors.DepartmentStatistic;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class FinalLevelWindow {
+public class  FinalLevelWindow {
 
     /*
     logger
@@ -55,23 +53,23 @@ public class FinalLevelWindow {
     @FXML
     private Label notReceiveDepartments;
 
-    @FXML
-    private TableView<Department> departmentTableView;
 
     @FXML
-    private ChoiceBox yearsChoiceBox;
+    private TableView<DepartmentStatistic> departmentTableView;
+    @FXML
+    private ChoiceBox<Integer> yearsChoiceBox;
 
     @FXML
-    private ChoiceBox monthsChoiceBox;
+    private ChoiceBox<String> monthsChoiceBox;
 
     @FXML
-    private TableColumn<Department,Integer> numberReportsOfDepartment;
+    private TableColumn<DepartmentStatistic,Integer> numberReportsOfDepartmentColumn;
 
     @FXML
-    private TableColumn<Department,String> departmentName;
+    private TableColumn<DepartmentStatistic,Department> departmentNameColumn;
 
     @FXML
-    private TableColumn<Department,Integer> numberReceiveReportsOfDepartment;
+    private TableColumn<DepartmentStatistic,Integer> numberReceiveReportsOfDepartmentColumn;
 
     /**
      * FXML Methods
@@ -87,10 +85,14 @@ public class FinalLevelWindow {
     }
 
     @FXML
-    public void reportForDepartment(){}
+    public void reportForDepartment(){
+        System.out.println("reportForDepartment");
+    }
 
     @FXML
-    public void reportForAllDepartments(){}
+    public void reportForAllDepartments(){
+        System.out.println("reportForAllDepartments");
+    }
 
     /**
      * Init method
@@ -135,5 +137,23 @@ public class FinalLevelWindow {
         allDepartments.setText("Все (" + listOfDepartment.size() + ")");
         receiveDepartments.setText("Прислали (" + departmentsGood +")");
         notReceiveDepartments.setText("НЕ прислали (" + (listOfDepartment.size() - departmentsGood) +")");
+        departmentNameColumn.setCellValueFactory(new PropertyValueFactory<DepartmentStatistic,Department>("department"));
+        numberReceiveReportsOfDepartmentColumn.setCellValueFactory(new PropertyValueFactory<DepartmentStatistic,Integer>("completeReports"));
+        numberReportsOfDepartmentColumn.setCellValueFactory(new PropertyValueFactory<DepartmentStatistic,Integer>("allReports"));
+        List<DepartmentStatistic> departmentStatisticsList = new ArrayList<>();
+        for(Department department : listOfDepartment){
+            departmentStatisticsList.add(new DepartmentStatistic(department,howReportsCome.get(department),department.getReports().size()));
+        }
+        ObservableList<DepartmentStatistic> departmentStatisticObservableList = FXCollections.observableArrayList(departmentStatisticsList);
+        departmentTableView.setItems(departmentStatisticObservableList);
     }
+
+    @FXML
+    public void loadDataDepartmentReport(){
+        Integer years = yearsChoiceBox.getValue();
+        Integer month = DateUtil.getMonthByName(monthsChoiceBox.getValue());
+        System.out.println(years);
+        System.out.println(month);
+    }
+
 }
